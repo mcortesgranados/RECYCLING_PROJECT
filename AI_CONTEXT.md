@@ -213,7 +213,7 @@ Documento: **`03_rutas/plan_semanal.html`** (y `.pdf`).
 
 > **Convención de lectura (2026-10-23):** en el plan diario, cada vía del tramo va en un **recuadro rojo con flecha de sentido** (↑ norte, ↓ sur, → oriente, ← occidente) y debajo la instrucción «Coger X sentido Y hasta Z». El recuadro gris es el punto de salida, no una vía. Los sentidos se derivan de la numeración de Bogotá —calles suben al norte, carreras al occidente—, **no están verificados contra señalización ni cierres**. Las filas de descarga llevan etiqueta roja con ⚠.
 
-> **Columna de gestión comercial (2026-10-23):** cada fila cierra con un **recuadro rojo** que trae el guion textual para pedir el material en el establecimiento y, debajo, **por quién preguntar** (dueño, administrador, jefe de cocina, maestro de taller, recepcionista, pesador de la ECA). Los tramos de traslado, salida y regreso dicen «Sin gestión en este tramo».
+> **Columna de gestión comercial (2026-10-23):** cada fila cierra con un **recuadro rojo** que trae el guion textual para pedir el material en el establecimiento y, debajo, **por quién preguntar** (dueño, administrador, jefe de cocina, maestro de taller, recepcionista, pesador de la ECA). Los tramos de traslado, salida y regreso dicen «Sin gestión en este tramo». **Los guiones no ofrecen comprar**: preguntan por el comprador actual («¿quién le compra la chatarra hoy?») y ofrecen el servicio de sacarlo sin costo. Antes de las 7:00 no se pregunta: se recoge lo que quedó en el andén.
 
 ---
 
@@ -265,7 +265,8 @@ Cifras del plan vigente. Composición, kilos y precios están detallados en `03_
 9. **Descargar cerca de la zona, no siempre en Mártires**: el martes el viaje 1 se cierra en la ECA Toberín para no bajar 13 km con 105 kg de vidrio.
 10. **Dos tandas diarias** (2026-10-23): la segunda tanda no repite cuadras, cubre la capa que la primera no alcanzó y en la hora en que el material se repone. Es lo que lleva el plan a 108% de la meta sin subir el peso por viaje.
 11. **Si no hay material para la tanda B, se cierra el día.** No se rellena con kilómetros ni con carga.
-12. **Tope de 80 kg por viaje con la unidad real** (2026-10-23): no es negociable mientras las ruedas sean de 36 radios y el eje rígido. El corte se hace por peso, no por reloj. Subir a 150 kg exige el refuerzo de la sección 2.2.
+12. **Las primeras semanas no se compra: se recoge** (2026-10-23). No se dice un precio hasta tener el precio del día en la ECA. El argumento en la calle es el servicio —«yo se lo saco, usted no hace nada»— y el material se vende a precio de lista. Las cuentas del plan son de venta, no de compra: pagar por el material es un costo que el modelo no tiene.
+13. **Tope de 80 kg por viaje con la unidad real** (2026-10-23): no es negociable mientras las ruedas sean de 36 radios y el eje rígido. El corte se hace por peso, no por reloj. Subir a 150 kg exige el refuerzo de la sección 2.2.
 
 ---
 
@@ -351,6 +352,7 @@ RECYCLING_PROJECT/
 
 | Fecha | Qué se hizo |
 |---|---|
+| 2026-10-23 (12) | Dos correcciones de realidad en el plan: **los horarios de apertura** (antes de las 7:00 no hay comercio ni oficina abiertos; esas filas pasaron a «se recoge lo del andén» y la regla entró al protocolo) y **los guiones comerciales** (nueve reescritos para preguntar por el comprador actual en vez de ofrecer compra, más el bloque «las primeras semanas no se compra» y la prueba de los diez locales). PDF en 12 páginas. |
 | 2026-10-23 (11) | Se agregó al plan la sección **«Protocolo de parqueo y voz»**: tabla de qué material se recoge del andén y cuál hay que pedir, seis reglas de seguridad del triciclo (10 metros, umbral, mismo lado del andén, candado, nunca lleno, pedir que lo saquen) y la regla de las dos primeras semanas (preguntar sin cargar). PDF en 12 páginas. |
 | 2026-10-23 (10) | Se añadió la **quinta columna «Qué decir y por quién preguntar»** en las 61 filas del plan diario: guion textual entre comillas para pedir el material y el rol a buscar en cada tipo de establecimiento. Los traslados dicen «Sin gestión». Encabezados de tabla repetidos en cada página del PDF (11 páginas). |
 | 2026-10-23 (9) | **Plan ajustado a 80 kg por viaje** con la unidad real: de 17 a **25 viajes** (lunes 5, martes 5, miércoles 3, jueves 5, viernes 5, sábado 2), ≈185 km y **+3 h 15** de jornada. El ingreso **no cambia** ($1.937.150) porque el material es el mismo. El miércoles pasa a 2 viajes de 66 kg (cierra 18:40) y el jueves a las 19:50. Se descartó por ahora el refuerzo de la unidad: cuesta más que el valor de la unidad usada. |
