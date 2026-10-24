@@ -83,7 +83,7 @@ Estimación con 65 kg de vacío y reparto 65/35:
 
 ---
 
-## 3. Catálogo de materiales (18 fichas)
+## 3. Catálogo de materiales (20 fichas)
 
 Documento completo con foto del envase típico, cómo reconocerlo, cómo empacarlo y advertencias:
 **`02_materiales/guia_materiales.html`** (también en PDF y CSV).
@@ -314,7 +314,7 @@ RECYCLING_PROJECT/
 │   ├── ficha_triciclo.html
 │   └── ficha_triciclo.pdf
 ├── 02_materiales/
-│   ├── guia_materiales.html      ← 18 fichas con foto
+│   ├── guia_materiales.html      ← 20 fichas con foto
 │   ├── guia_materiales.pdf
 │   └── materiales.csv
 ├── 03_rutas/
@@ -352,6 +352,7 @@ RECYCLING_PROJECT/
 
 | Fecha | Qué se hizo |
 |---|---|
+| 2026-10-24 (13) | Se sumaron **cable de red (UTP)** y **cable coaxial** como fichas 09 y 10 del catálogo, con precio estimado por contenido de cobre ($5.000–$8.000 y $3.000–$5.000/kg), la **prueba del imán** y la regla de no pelar. Entraron también en el CSV de materiales (20 filas) y en el ranking de prioridad por kilo como puesto 4. Referencia verificada: cable con forro $11.000/kg y cobre limpio $35.000/kg en Depósito Gaitán, 2026. |
 | 2026-10-23 (12) | Dos correcciones de realidad en el plan: **los horarios de apertura** (antes de las 7:00 no hay comercio ni oficina abiertos; esas filas pasaron a «se recoge lo del andén» y la regla entró al protocolo) y **los guiones comerciales** (nueve reescritos para preguntar por el comprador actual en vez de ofrecer compra, más el bloque «las primeras semanas no se compra» y la prueba de los diez locales). PDF en 12 páginas. |
 | 2026-10-23 (11) | Se agregó al plan la sección **«Protocolo de parqueo y voz»**: tabla de qué material se recoge del andén y cuál hay que pedir, seis reglas de seguridad del triciclo (10 metros, umbral, mismo lado del andén, candado, nunca lleno, pedir que lo saquen) y la regla de las dos primeras semanas (preguntar sin cargar). PDF en 12 páginas. |
 | 2026-10-23 (10) | Se añadió la **quinta columna «Qué decir y por quién preguntar»** en las 61 filas del plan diario: guion textual entre comillas para pedir el material y el rol a buscar en cada tipo de establecimiento. Los traslados dicen «Sin gestión». Encabezados de tabla repetidos en cada página del PDF (11 páginas). |
