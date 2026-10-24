@@ -1,0 +1,20 @@
+﻿material;precio_min_cop_kg;precio_max_cop_kg;unidad;fuente;estado
+Cartón;300;700;COP/kg;Tabla del usuario (2026-10-23);Referencia
+PET transparente;800;1500;COP/kg;Tabla del usuario (2026-10-23);Referencia
+PET de color;;;COP/kg;Sin dato;Confirmar en bodega
+Vidrio;100;300;COP/kg;Tabla del usuario (2026-10-23);Referencia
+Aluminio;4000;7000;COP/kg;Tabla del usuario (2026-10-23);Referencia
+Chatarra / hierro;800;2000;COP/kg;Tabla del usuario (2026-10-23);Referencia
+Cobre rojo limpio;35000;35000;COP/kg;Comprador de chatarra Bogotá, lista 2026;Confirmar
+Cobre rojo #2;35000;35000;COP/kg;Comprador de chatarra Bogotá, lista 2026;Confirmar
+Cable con forro;11000;11000;COP/kg;Comprador de chatarra Bogotá, lista 2026;Confirmar
+Cobre de radiador;22000;22000;COP/kg;Comprador de chatarra Bogotá, lista 2026;Confirmar
+Bronce y latón;22000;22000;COP/kg;Comprador de chatarra Bogotá, lista 2026;Confirmar
+PEAD / HDPE;;;COP/kg;Sin dato;Confirmar en bodega
+PP;;;COP/kg;Sin dato;Confirmar en bodega
+Papel blanco / archivo;;;COP/kg;Sin dato;Confirmar en bodega
+Periódico / revista;;;COP/kg;Sin dato;Confirmar en bodega
+Tetra Pak;;;COP/kg;Sin dato;Confirmar en bodega
+Bolsas y film;;;COP/kg;Sin dato;Confirmar en bodega
+Icopor;;;COP/kg;Sin dato;Confirmar en bodega
+Envolturas de snacks;;;COP/kg;Sin dato;Evitar
