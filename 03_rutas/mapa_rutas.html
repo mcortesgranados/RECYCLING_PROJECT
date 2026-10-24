@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de rutas sobre Bogotá · RECYCLING_PROJECT</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .plate{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+         box-shadow:0 1px 4px rgba(16,32,48,.07);margin:8px 0 6px}
+  .plate img{display:block;width:100%;height:auto}
+  .cap{font-size:12.5px;color:var(--muted);margin:0 0 4px}
+  .swatch{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:0}
+  @media print{
+    .plate img{max-height:176mm;width:auto;display:block;margin:0 auto}
+    .plate{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <p class="kicker">03 · Rutas</p>
+    <h1>Plan de rutas sobre el mapa de Bogotá</h1>
+    <p class="lead">Cuatro rutas, una por día, dibujadas sobre los límites reales de las 20 localidades. Todas arrancan en el barrio La Favorita, entran por el punto más lejano y vuelven cargando.</p>
+    <p class="meta">Base fija: barrio La Favorita, Los Mártires (Calle 17 con Carrera 17) · 23 de octubre de 2026</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="crumb"><a href="../index.html">← Volver al inicio</a> · <a href="mapa_rutas.pdf">Descargar PDF</a> · <a href="mapa_rutas_bogota.png">Póster completo</a> · <a href="rutas.csv">rutas.csv</a> · <a href="plan_semanal.html"><b>Plan diario y acopio →</b></a></p>
+
+  <div class="plate">
+    <img src="mapa_bogota.png" alt="Mapa de Bogotá con las cuatro rutas de recolección marcadas por color">
+  </div>
+  <p class="cap">Los límites son los de la cartografía distrital de Bogotá. El punto central es la bodega en el barrio La Favorita. Las líneas marcan el corredor entre localidades, no el trazado calle por calle.</p>
+
+  <div class="grid" style="margin-top:10px">
+    <div class="card" style="padding:14px 16px"><span class="pill blue">Ruta 1 · Centro</span><p style="margin:0;font-size:13px">Santa Fe · Candelaria<br><span class="small">5:00 – 9:00 · cartón, plegadizo, PET</span></p></div>
+    <div class="card" style="padding:14px 16px"><span class="pill amber">Ruta 2 · Norte</span><p style="margin:0;font-size:13px">Usaquén · Chapinero · Teusaquillo<br><span class="small">9:30 – 13:00 · vidrio, PET, papel</span></p></div>
+    <div class="card" style="padding:14px 16px"><span class="pill green">Ruta 3 · Occidente</span><p style="margin:0;font-size:13px">Bosa · Kennedy · Fontibón<br><span class="small">13:30 – 16:30 · metales</span></p></div>
+    <div class="card" style="padding:14px 16px"><span class="pill red">Ruta 4 · Sur</span><p style="margin:0;font-size:13px">Rafael Uribe · Tunjuelito · A. Nariño<br><span class="small">16:00 – 18:30 · PET, latas, cartón</span></p></div>
+  </div>
+
+  <h2>Las cuatro rutas</h2>
+
+  <table>
+    <tr>
+      <th>Ruta</th><th>Orden de visita (1 → 3)</th><th>Qué se recoge</th><th>Franja</th><th>Carga (máx. 150 kg por viaje)</th>
+    </tr>
+    <tr>
+      <td><span class="swatch" style="background:#3E7096"></span><b>1 · Centro</b></td>
+      <td>Santa Fe → Candelaria</td>
+      <td>Cartón, plegadizo, PET, aluminio de comercio</td>
+      <td class="num">5:00 – 9:00</td>
+      <td class="num">2 viajes · 95 + 75 kg</td>
+    </tr>
+    <tr>
+      <td><span class="swatch" style="background:#C56443"></span><b>2 · Norte</b></td>
+      <td>Usaquén → Chapinero → Teusaquillo</td>
+      <td>Vidrio de restaurantes, PET, papel de oficina</td>
+      <td class="num">9:30 – 13:00</td>
+      <td class="num">2 viajes · 105 + 95 kg</td>
+    </tr>
+    <tr>
+      <td><span class="swatch" style="background:#C68E31"></span><b>3 · Occidente</b></td>
+      <td>Bosa → Kennedy → Fontibón</td>
+      <td>Chatarra, cobre, latón, aluminio de taller</td>
+      <td class="num">13:30 – 16:30</td>
+      <td class="num">1 viaje · 130 – 150 kg</td>
+    </tr>
+    <tr>
+      <td><span class="swatch" style="background:#836687"></span><b>4 · Sur</b></td>
+      <td>Rafael Uribe Uribe → Tunjuelito → Antonio Nariño</td>
+      <td>PET, latas, cartón residencial</td>
+      <td class="num">16:00 – 18:30</td>
+      <td class="num">2 viajes · 100 + 85 kg</td>
+    </tr>
+  </table>
+
+  <p class="cap">La franja es la ventana de la ruta. Con el reparto en viajes de máximo 150 kg, los días largos cierran más tarde: martes 14:25 y jueves 19:10 (ver el <a href="plan_semanal.html">plan diario</a>).</p>
+
+  <h2>Por qué este orden</h2>
+
+  <div class="note">
+    <strong>Sales vacío al punto 1 y vuelves cargando.</strong>
+    El número 1 es siempre la parada más lejana y el 3 la más cercana a la bodega. Así no empujas peso muerto lejos de casa y la última parada te deja a pocas cuadras de descargar.
+  </div>
+
+  <div class="note">
+    <strong>El miércoles es el día de la plata.</strong>
+    La ruta 3 pesa poco —el cajón no se llena— pero es la de mayor valor por kilo. Ese día se pueden hacer dos vueltas y es el que más se acerca a los $300.000.
+  </div>
+
+  <div class="note warn">
+    <strong>La ruta 1 se ve corta porque el centro está cerca.</strong>
+    Es real: la bodega queda dentro del centro, a unos 6 km de ida y vuelta. Es un día corto y por eso se repite el viernes.
+  </div>
+
+  <h2>Reparto de la semana</h2>
+
+  <table>
+    <tr><th>Día</th><th>Ruta</th><th>Lógica</th></tr>
+    <tr><td>Lunes</td><td><span class="swatch" style="background:#3E7096"></span>Ruta 1 · Centro</td><td>El cartón del fin de semana se saca temprano</td></tr>
+    <tr><td>Martes</td><td><span class="swatch" style="background:#C56443"></span>Ruta 2 · Norte</td><td>Restaurantes y oficinas ya vaciaron</td></tr>
+    <tr><td>Miércoles</td><td><span class="swatch" style="background:#C68E31"></span>Ruta 3 · Occidente</td><td>Talleres abiertos, día de metales y de dos vueltas</td></tr>
+    <tr><td>Jueves</td><td><span class="swatch" style="background:#836687"></span>Ruta 4 · Sur</td><td>Residencial, cuando la gente ya acumuló la semana</td></tr>
+    <tr><td>Viernes</td><td><span class="swatch" style="background:#3E7096"></span>Ruta 1 · repaso</td><td>El comercio vuelve a generar cartón y plegadizo</td></tr>
+    <tr><td>Sábado</td><td>Mixta</td><td>Solo clientes fijos que ya dijeron sí</td></tr>
+    <tr><td>Domingo</td><td>—</td><td>Descanso y mantenimiento del triciclo</td></tr>
+  </table>
+
+  <h2>Cómo se construyó el mapa</h2>
+  <ul class="clean">
+    <li><b>Base cartográfica:</b> límites de las 20 localidades de Bogotá (cartografía distrital, GeoJSON público).</li>
+    <li><b>Puntos de parada:</b> un punto representativo dentro de cada localidad, verificado geométricamente para que caiga dentro de su propio polígono.</li>
+    <li><b>Trazos:</b> unión suavizada entre esos puntos. No son calles reales.</li>
+    <li><b>Base de acopio:</b> barrio La Favorita, localidad de Los Mártires (Calle 17 con Carrera 17), el punto de partida fijo de todas las jornadas.</li>
+  </ul>
+
+  <div class="note stop">
+    <strong>La base es fija: La Favorita.</strong>
+    Si algún día cambias de punto de guardado, las cuatro rutas se recalculan: los corredores y el orden de visita dependen de dónde se arranca y dónde se descarga.
+  </div>
+
+  <footer class="foot">
+    <p>Mapa generado el 23 de octubre de 2026 · Proyección: coordenadas geográficas ajustadas por latitud.</p>
+    <p><a href="../index.html">Volver al inicio</a> · <a href="../AI_CONTEXT.md">Contexto del proyecto</a></p>
+  </footer>
+</div>
+</body>
+</html>

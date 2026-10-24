@@ -1,0 +1,13 @@
+﻿ruta;color;orden_visita;localidad;franja_horaria;materiales;tipo_de_zona
+1 · Centro;Azul #3E7096;1;Santa Fe;5:00 – 9:00;Cartón, plegadizo, PET, aluminio de comercio;Comercio, plazas, San Andresito
+1 · Centro;Azul #3E7096;2;Candelaria;5:00 – 9:00;Cartón, plegadizo, PET;Centro histórico y oficinas
+1 · Centro;Azul #3E7096;3;Los Mártires;5:00 – 9:00;Cartón, plegadizo, aluminio;Comercio popular
+2 · Norte;Terracota #C56443;1;Usaquén;9:30 – 13:00;Vidrio, PET, papel, aluminio;Restaurantes y zona gastronómica
+2 · Norte;Terracota #C56443;2;Chapinero;9:30 – 13:00;Vidrio, PET, papel de oficina;Zona G, oficinas, comercio
+2 · Norte;Terracota #C56443;3;Teusaquillo;9:30 – 13:00;Papel, PET, cartón;Oficinas y universidades
+3 · Occidente;Ámbar #C68E31;1;Bosa;13:30 – 16:30;Chatarra, aluminio;Talleres y bodegas
+3 · Occidente;Ámbar #C68E31;2;Kennedy;13:30 – 16:30;Chatarra, cobre, latón;Talleres mecánicos e industria
+3 · Occidente;Ámbar #C68E31;3;Fontibón;13:30 – 16:30;Cobre, latón, chatarra;Zona industrial y bodegas
+4 · Sur;Morado #836687;1;Rafael Uribe Uribe;16:00 – 18:30;PET, latas, cartón;Residencial
+4 · Sur;Morado #836687;2;Tunjuelito;16:00 – 18:30;PET, latas, cartón;Residencial y comercio de barrio
+4 · Sur;Morado #836687;3;Antonio Nariño;16:00 – 18:30;PET, latas, cartón;Residencial
