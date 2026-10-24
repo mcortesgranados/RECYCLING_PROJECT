@@ -1,0 +1,429 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan diario y centros de acopio · RECYCLING_PROJECT</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .day{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 0 4px;
+       margin:18px 0;box-shadow:0 1px 3px rgba(16,32,48,.05);break-inside:avoid}
+  .dayhead{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;
+           border-left:5px solid #3E7096;border-radius:14px 14px 0 0;padding:16px 20px 12px;background:#fbfcfd}
+  .daymeta{display:flex;gap:22px;text-align:right;flex:0 0 auto}
+  .daymeta .k{display:block;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .daymeta b{font-size:13px}
+  table.tramos{margin:0;border:none;border-radius:0 0 14px 14px;font-size:13px}
+  table.tramos th{background:#f4f7fa}
+  table.tramos td{padding:9px 12px}
+   .viajes{display:flex;flex-wrap:wrap;gap:8px;padding:10px 20px 0}
+   .vj{display:flex;align-items:baseline;gap:7px;background:#f4f7fa;border:1px solid var(--line);
+       border-radius:9px;padding:6px 11px;font-size:12px}
+   .vj .n{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+   .vj b{font-size:12.5px;color:var(--green-dark)}
+   .vj .d{font-size:11.5px;color:var(--muted)}
+   .vj.vacio{background:#fff;border-style:dashed}
+   .rt-chips{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 4px}
+   .rt-ch{display:inline-flex;align-items:center;gap:4px;border:1.6px solid #C0392B;border-radius:5px;
+          padding:1px 6px;font-size:11.5px;line-height:1.4;color:#8C2A20;background:#fff}
+   .rt-ch b{font-weight:600}
+   .rt-ch i{font-style:normal;color:#C0392B;font-weight:700;font-size:12.5px}
+   .rt-ch.rt-sal{border-color:#9AA7B2;color:#5b6b7c;background:#f4f6f8}
+   .rt-cap{margin:0;font-size:10.5px;color:#5b6b7c;line-height:1.45}
+   .tag-desc{display:inline-block;background:#B42318;color:#fff;font-weight:700;border-radius:5px;
+             padding:2px 8px;font-size:11px;line-height:1.4;box-shadow:0 1px 2px rgba(180,35,24,.25)}
+   ol.reglas{margin:8px 0 0;padding-left:22px}
+   ol.reglas li{margin-bottom:6px;line-height:1.5;font-size:13px}
+   ol.reglas b{color:var(--green-dark)}
+   td.decir{padding:4px 7px;vertical-align:top}
+   .say{border:1.4px solid #C0392B;border-radius:6px;padding:4px 7px;background:#fffaf9;
+        font-size:10.5px;line-height:1.42;color:#5a1a12}
+   .who{margin-top:3px;font-size:9.5px;line-height:1.35;color:#6f625f}
+   .who b{color:#8C2A20;font-weight:600}
+   .ingreso{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;
+           padding:10px 20px;background:#f7faf9;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .ig-k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .ig-v{font-size:19px;font-weight:bold;letter-spacing:-.02em;color:var(--green-dark)}
+  .ig-r{font-size:12px;color:var(--muted)}
+  .ig-p{font-size:12px;font-weight:bold;margin-left:auto}
+  .base{background:#0f3d2e;color:#eaf6f1;border-radius:13px;padding:16px 18px;font-size:14px;margin:16px 0}
+  .base b{color:#fff}
+  @media(max-width:720px){.dayhead{flex-direction:column;gap:10px}.daymeta{text-align:left;gap:18px}}
+  @media print{
+     .day{page-break-inside:auto;margin:5px 0;padding-bottom:0}
+     .dayhead{padding:4px 10px 3px;gap:12px}
+     .dayhead h3{font-size:12px;margin:4px 0 1px !important}
+     .dayhead .small{font-size:9px}
+     .daymeta{gap:14px}
+     .daymeta .k{font-size:7.5px}
+     .daymeta b{font-size:9.5px}
+     table.tramos{font-size:9.2px;line-height:1.28}
+     table.tramos tr{break-inside:avoid;page-break-inside:avoid}
+     table.tramos thead{display:table-header-group}
+     table.tramos td{padding:2.8px 5px}
+     table.tramos th{padding:3px 5px;font-size:7.5px}
+     .note{font-size:10.5px;padding:6px 10px;margin:6px 0}
+     h2{font-size:14px;margin:10px 0 5px}
+     .base{font-size:10.5px;padding:8px 12px;margin:8px 0}
+     .ingreso{padding:4px 10px;gap:3px 10px}
+     .viajes{padding:4px 10px 0;gap:4px}
+     .vj{padding:2px 6px;border-radius:5px;gap:5px}
+     .vj .n{font-size:7px}
+     .vj b{font-size:9px}
+     .vj .d{font-size:8px}
+     .ig-v{font-size:13px}
+     .ig-k{font-size:7.5px}
+     .ig-r,.ig-p{font-size:8.5px}
+     table[style*="12.5px"]{font-size:9px !important;line-height:1.28}
+     table[style*="12.5px"] td,table[style*="12.5px"] th{padding:2px 4px !important}
+     .small{font-size:9.6px}
+     .rt-chips{gap:2px;margin-bottom:2px}
+     .rt-ch{font-size:7.9px;padding:0 3px;border-width:1px;border-radius:3px;gap:2px}
+     .rt-ch i{font-size:8px}
+     .rt-cap{font-size:7.9px;line-height:1.34}
+     .tag-desc{font-size:7.6px;padding:1px 5px;border-radius:3px}
+     td.decir{padding:1.5px 4px}
+     ol.reglas{margin:4px 0 0;padding-left:16px}
+     ol.reglas li{margin-bottom:2px;font-size:8.8px;line-height:1.35}
+     .say{font-size:7.1px;padding:2px 4px;border-width:1px;border-radius:3px;line-height:1.3}
+     .who{font-size:6.6px;margin-top:1px;line-height:1.25}
+     table.tramos .small{font-size:8.8px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <p class="kicker">03 · Rutas</p>
+    <h1>Plan diario, calle por calle</h1>
+    <p class="lead">Cada día arranca y termina en el barrio La Favorita, y cada día tiene <b>dos tandas</b>. Aquí está el orden de calles, la franja de cada tramo, dónde descargar y cómo se reparte la carga: <b>ningún viaje pasa de 80 kg</b>, el techo de la unidad real.</p>
+    <p class="meta">Base fija: Calle 17 con Carrera 17, barrio La Favorita (Los Mártires) · 23 de octubre de 2026</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="crumb"><a href="../index.html">← Volver al inicio</a> · <a href="mapa_rutas.html">Mapa de rutas</a> · <a href="plan_semanal.pdf">Descargar PDF</a></p>
+
+  <div class="base">
+    <b>Punto de partida fijo: barrio La Favorita.</b>
+    Calle 17 con Carrera 17, localidad de Los Mártires, entre la Avenida Caracas y la Carrera 17.
+    Desde ahí salen y ahí regresan las seis jornadas. La ECA Mártires (Calle 8 N° 26-80) queda a 1,5 km,
+    así que casi siempre descargas cerca de casa.
+  </div>
+
+  <div class="note">
+    <strong>El triciclo es el del bastidor verde: cajón bajo y abierto, parrilla al frente y llanta de tacos.</strong>
+    Tres ajustes ya incorporados: el cartón y el papel van <b>amarrados con red o cabuya</b>, porque el cajón no tiene tapa y la carga se sale en los huecos; la <b>parrilla delantera solo lleva volumen liviano</b> —PET, bolsas, costales vacíos—, nunca metal ni vidrio, que se van directo a la dirección; y los tiempos llevan un <b>5% de margen</b> porque la llanta de tacos rueda más pesada en pavimento que una lisa.
+  </div>
+
+  <div class="note">
+    <strong>Cómo leer las vías.</strong>
+    Cada recuadro rojo es una vía del tramo y la flecha indica el sentido de viaje:
+    <b>↑</b> norte · <b>↓</b> sur · <b>→</b> oriente · <b>←</b> occidente. Debajo, en texto, va la instrucción completa:
+    «Coger Calle 19 sentido oriente hasta la Carrera 7». El recuadro gris es el punto donde arrancas, no una vía a tomar.
+    <br><span class="small">Los sentidos salen de la numeración de Bogotá: las calles suben hacia el norte y las carreras hacia el occidente. No están verificados contra señalización ni contra cierres por obra: compruébalos en la vuelta en seco.</span>
+  </div>
+
+  <h2>Protocolo de parqueo y voz</h2>
+
+  <p>Casi todo el valor está en material que no sale al andén. Pero preguntar no puede costar el triciclo: estas reglas se aplican en cada parada, sin excepción. Y el orden ya está en las tandas: <b>la tanda A pregunta, la tanda B recoge</b>.</p>
+
+  <table>
+    <tr><th style="width:30%">Material</th><th style="width:40%">Cómo llega a la calle</th><th>Qué se hace</th></tr>
+    <tr><td><b>Cartón y plegadizo</b> de comercio</td><td>Se deja en el andén antes de que pase el camión</td><td><b>Recoger</b> en la tanda A, de madrugada</td></tr>
+    <tr><td>PET y latas de tienda</td><td>Mitad afuera, mitad adentro del local</td><td>Recoger lo del andén; preguntar si está abierto</td></tr>
+    <tr><td><b>Archivo de oficina</b></td><td>Nunca sale solo a la calle</td><td><b>Preguntar</b></td></tr>
+    <tr><td><b>Cobre, latón, radiadores</b></td><td>Un taller no los deja en el andén: los acumula o los vende</td><td><b>Preguntar</b></td></tr>
+    <tr><td><b>Vidrio de restaurante</b></td><td>Sale con la basura y se rompe en el camino</td><td><b>Preguntar</b></td></tr>
+  </table>
+
+  <p class="small" style="margin:6px 0 0"><b>Lo que vale más por kilo no está en el andén.</b> Si solo se recoge lo que sacan, quedan el cartón y el PET de $500 a $1.150 el kilo, y se pierde el miércoles, que es el 32% del ingreso semanal.</p>
+
+  <ol class="reglas">
+    <li><b>Regla de los 10 metros.</b> Si la puerta está a más de 10 metros del triciclo, no se para: se pasa de largo y se vuelve en la tanda B.</li>
+    <li><b>Preguntar desde el umbral, nunca entrar.</b> El triciclo siempre en la línea de visión.</li>
+    <li><b>Aparcar del mismo lado del andén</b>, mirando la puerta, no al otro lado de la calle.</li>
+    <li><b>Candado de cable a un poste o reja</b>, aunque la parada sea de un minuto. Es la compra más barata del proyecto y evita la pérdida más cara.</li>
+    <li><b>Nunca con el cajón lleno</b> en zona concurrida: el momento más vulnerable es con 80 kg arriba. El corte a 80 kg también protege aquí.</li>
+    <li><b>Pedir que lo saquen a la puerta:</b> «¿me lo puede sacar al andén?». Cambia una entrada al local por una carga al lado del triciclo.</li>
+  </ol>
+
+  <div class="note">
+    <strong>La primera visita cuesta; la segunda no.</strong>
+    Preguntar en 25 paradas nuevas son 1,5 horas la primera semana. Después el cliente ya tiene el material apartado y la parada baja a 40 segundos. Por eso: <b>las dos primeras semanas se pregunta sin cargar</b> en los locales nuevos —solo nombre y dirección— y a la semana siguiente todos son clientes fijos.
+  </div>
+
+  <h2>La semana</h2>
+
+  <section class="day">
+    <div class="dayhead" style="border-left-color:#3E7096">
+      <div>
+        <span class="pill" style="background:#3E7096;color:#fff;border:none;margin:0">Lunes</span>
+        <h3 style="margin:8px 0 2px">Ruta 1 · Centro</h3>
+        <p class="small" style="margin:0">Cartón, plegadizo, PET y aluminio de comercio</p>
+      </div>
+      <div class="daymeta">
+        <div><span class="k">Carga</span><b>≈ 265 kg · 5 viajes</b></div>
+        <div><span class="k">Distancia</span><b>≈ 15 km</b></div>
+        <div><span class="k">Descarga</span><b>ECA Mártires</b></div>
+      </div>
+    </div>
+    <div class="viajes">
+      <div class="vj"><span class="n">Tanda A · 3 viajes</span><b>80 + 50 + 40 kg</b><span class="d">$160.650 · 5:00–9:25</span></div>
+      <div class="vj"><span class="n">Tanda B · 2 viajes</span><b>50 + 45 kg</b><span class="d">$84.000 · 9:50–13:10</span></div>
+    </div>
+    <div class="ingreso"><span class="ig-k">Ingreso estimado del día</span><span class="ig-v">$244.650</span><span class="ig-r">rango $156.400 – $340.300</span><span class="ig-p" style="color:var(--muted)">82% de la meta diaria</span></div>
+    <table class="tramos"><thead><tr><th style="width:9%">Hora</th><th style="width:15%">Tramo</th><th style="width:28%">Por dónde y en qué sentido</th><th style="width:20%">Qué hacer</th><th style="width:28%">Qué decir y por quién preguntar</th></tr></thead>
+      
+      <tr><td class="num" style="white-space:nowrap"><b>5:00 – 5:15</b></td><td><b>Salida de La Favorita</b></td><td><div class="rt-chips"><span class="rt-ch rt-sal"><b>Calle 17 · Cra 17</b></span><span class="rt-ch"><b>Carrera 17</b><i>↑</i></span><span class="rt-ch"><b>Calle 19</b><i>→</i></span><span class="rt-ch"><b>Carrera 7</b><i>↑</i></span></div><p class="rt-cap">Sales de la base: Calle 17 con Carrera 17 · Coger Carrera 17 sentido norte hasta la Calle 19 · Coger Calle 19 sentido oriente hasta la Carrera 7 · Coger Carrera 7 sentido norte hasta la Calle 26 (Santa Fe).</p></td><td class="small">Sale vacío. La bodega queda dentro del centro: este día no hay traslado largo.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>5:15 – 6:15</b></td><td><b>Santa Fe · parada 1</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 7</b><i>↑</i></span><span class="rt-ch"><b>Calle 26</b><i>→</i></span><span class="rt-ch"><b>Carrera 7</b><i>↓</i></span></div><p class="rt-cap">Coger Carrera 7 sentido norte hasta la Calle 26 · Coger Calle 26 sentido oriente hasta la Carrera 7 · Coger Carrera 7 sentido sur hasta la Calle 24.</p></td><td class="small">Comercio y oficinas. Pide el cartón plegado antes de que pase el camión de basura. Corta cuando llegues a 80 kg: no sigas llenando.</td><td class="decir"><div class="say">«Buenos días, ¿me aparta las cajas de hoy antes de que pase el camión?»</div><div class="who"><b>Preguntar por:</b> el dueño o quien atiende la caja</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>6:15 – 6:45</b></td><td><b>Candelaria · parada 2</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 7</b><i>↓</i></span><span class="rt-ch"><b>Calle 19</b><i>←</i></span><span class="rt-ch"><b>Carrera 4</b><i>↓</i></span><span class="rt-ch"><b>Calle 10</b><i>←</i></span></div><p class="rt-cap">Coger Carrera 7 sentido sur hasta la Calle 19 · Coger Calle 19 sentido occidente hasta la Carrera 4 · Coger Carrera 4 sentido sur hasta la Calle 10 · Coger Calle 10 sentido occidente hasta la Carrera 10 (Candelaria).</p></td><td class="small">Centro histórico y oficinas pequeñas: el papel blanco y el archivo pesan más que el cartón.</td><td class="decir"><div class="say">«¿Me da el archivo que va a botar? Se lo saco yo y no se lo revuelvo.»</div><div class="who"><b>Preguntar por:</b> la recepcionista o el de servicios generales</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>6:45 – 7:10</b></td><td><span class="tag-desc">&#9888; Descarga · tanda A</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 10</b><i>←</i></span><span class="rt-ch"><b>Carrera 10</b><i>↓</i></span><span class="rt-ch"><b>Calle 13</b><i>←</i></span><span class="rt-ch"><b>Carrera 26</b><i>↓</i></span><span class="rt-ch"><b>Calle 8</b><i>←</i></span></div><p class="rt-cap">Coger Calle 10 sentido occidente hasta la Carrera 10 · Coger Carrera 10 sentido sur hasta la Calle 13 · Coger Calle 13 sentido occidente hasta la Carrera 26 · Coger Carrera 26 sentido sur hasta la Calle 8 · Coger Calle 8 sentido occidente hasta la Carrera 26 (ECA Mártires).</p></td><td class="small">ECA Mártires, unos 2,5 km. Con 80 kg este tramo toma 22 minutos; cargado con 170 de una sola vez tomaba casi 40.</td><td class="decir"><div class="say">«¿A cómo está hoy el cartón y el plegadizo?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>7:10 – 7:50</b></td><td><b>Segunda vuelta · comercio</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 8</b><i>→</i></span><span class="rt-ch"><b>Carrera 17</b><i>↑</i></span><span class="rt-ch"><b>Calle 19</b><i>→</i></span><span class="rt-ch"><b>Carrera 7</b><i>↓</i></span><span class="rt-ch"><b>Calle 13</b><i>←</i></span></div><p class="rt-cap">Coger Calle 8 sentido oriente hasta la Carrera 17 · Coger Carrera 17 sentido norte hasta la Calle 19 · Coger Calle 19 sentido oriente hasta la Carrera 7 · Coger Carrera 7 sentido sur hasta la Calle 13 · Coger Calle 13 sentido occidente hasta la Carrera 17.</p></td><td class="small">Sales liviano y vuelves por San Andresito y La Concordia, donde el plegadizo se acumula toda la mañana.</td><td class="decir"><div class="say">«¿Le quedó algo del mediodía? Paso otra vez en dos horas.»</div><div class="who"><b>Preguntar por:</b> el dueño del local</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>7:50 – 8:20</b></td><td><b>Cierre · parada 3</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 13</b><i>←</i></span><span class="rt-ch"><b>Carrera 17</b><i>↑</i></span><span class="rt-ch"><b>Calle 17</b><i>←</i></span></div><p class="rt-cap">Coger Calle 13 sentido occidente hasta la Carrera 17 · Coger Carrera 17 sentido norte hasta la Calle 17 · Coger Calle 17 sentido occidente hasta la Carrera 17.</p></td><td class="small">Última pasada por el comercio popular de La Favorita. Otra vez el techo: 45 kg.</td><td class="decir"><div class="say">«¿Me guarda el plegadizo hasta mañana? Se lo compro igual.»</div><div class="who"><b>Preguntar por:</b> el dueño del local</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>8:20 – 8:45</b></td><td><span class="tag-desc">&#9888; Descarga · tanda A</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 17</b><i>↓</i></span><span class="rt-ch"><b>Calle 13</b><i>←</i></span><span class="rt-ch"><b>Carrera 26</b><i>↓</i></span><span class="rt-ch"><b>Calle 8</b><i>←</i></span></div><p class="rt-cap">Coger Carrera 17 sentido sur hasta la Calle 13 · Coger Calle 13 sentido occidente hasta la Carrera 26 · Coger Carrera 26 sentido sur hasta la Calle 8 · Coger Calle 8 sentido occidente hasta la Carrera 26 (ECA Mártires).</p></td><td class="small">ECA Mártires. Pesa, vende y anota precio y kilos de cada viaje por separado.</td><td class="decir"><div class="say">«¿Me pesa por separado el cartón y el PET?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr>
+<tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>9:15 – 9:35</b></td><td><b>Tanda B · salida a Voto Nacional</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 8</b><i>→</i></span><span class="rt-ch"><b>Carrera 26</b><i>↑</i></span><span class="rt-ch"><b>Calle 13</b><i>→</i></span><span class="rt-ch"><b>Carrera 19</b><i>↑</i></span><span class="rt-ch"><b>Calle 19</b><i>←</i></span></div><p class="rt-cap">Coger Calle 8 sentido oriente hasta la Carrera 26 · Coger Carrera 26 sentido norte hasta la Calle 13 · Coger Calle 13 sentido oriente hasta la Carrera 19 · Coger Carrera 19 sentido norte hasta la Calle 19 · Coger Calle 19 sentido occidente hasta la Carrera 30 (Voto Nacional).</p></td><td class="small">Sales de la ECA con el cajón vacío. La tanda B no repite cuadras: entra por donde la A no pasó.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>9:35 – 10:35</b></td><td><b>Voto Nacional · comercio</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 19</b><i>→</i></span><span class="rt-ch"><b>Carrera 17</b><i>↓</i></span><span class="rt-ch"><b>Calle 13</b><i>←</i></span></div><p class="rt-cap">Coger Calle 19 sentido oriente hasta la Carrera 17 · Coger Carrera 17 sentido sur hasta la Calle 13 · Coger Calle 13 sentido occidente hasta la Carrera 30.</p></td><td class="small">Ferreterías, depósitos y talleres pequeños: cartón, plegadizo y algo de chatarra.</td><td class="decir"><div class="say">«¿La chatarra que le sobra la vende o la acumula?»</div><div class="who"><b>Preguntar por:</b> el jefe de bodega o el dueño del taller</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>10:35 – 11:25</b></td><td><b>La Pepita · Calle 13</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 30</b><i>↑</i></span><span class="rt-ch"><b>Calle 13</b><i>→</i></span><span class="rt-ch"><b>Carrera 25</b><i>↓</i></span><span class="rt-ch"><b>Calle 19</b><i>←</i></span></div><p class="rt-cap">Coger Carrera 30 sentido norte hasta la Calle 13 · Coger Calle 13 sentido oriente hasta la Carrera 25 · Coger Carrera 25 sentido sur hasta la Calle 19 · Coger Calle 19 sentido occidente hasta la Carrera 17 (La Pepita).</p></td><td class="small">Comercio que abre tarde. Aquí sí hay material a media mañana; en la primera tanda todavía estaba cerrado.</td><td class="decir"><div class="say">«¿Tiene las cajas de la mercancía de hoy?»</div><div class="who"><b>Preguntar por:</b> el administrador del local</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>11:25 – 12:00</b></td><td><b>Cierre en San Andrés</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 13</b><i>→</i></span><span class="rt-ch"><b>Carrera 17</b><i>↓</i></span><span class="rt-ch"><b>Calle 10</b><i>←</i></span></div><p class="rt-cap">Coger Calle 13 sentido oriente hasta la Carrera 17 · Coger Carrera 17 sentido sur hasta la Calle 10 · Coger Calle 10 sentido occidente hasta la Carrera 17.</p></td><td class="small">Última pasada por el comercio popular. Cierra en 45 kg, no esperes a llenar el cajón.</td><td class="decir"><div class="say">«¿Me deja las cajas desarmadas al lado del andén?»</div><div class="who"><b>Preguntar por:</b> el que atiende la caja</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>12:00 – 12:30</b></td><td><span class="tag-desc">&#9888; Descarga · tanda B</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 10</b><i>←</i></span><span class="rt-ch"><b>Carrera 17</b><i>↓</i></span><span class="rt-ch"><b>Calle 13</b><i>←</i></span><span class="rt-ch"><b>Carrera 26</b><i>↓</i></span><span class="rt-ch"><b>Calle 8</b><i>←</i></span></div><p class="rt-cap">Coger Calle 10 sentido occidente hasta la Carrera 17 · Coger Carrera 17 sentido sur hasta la Calle 13 · Coger Calle 13 sentido occidente hasta la Carrera 26 · Coger Carrera 26 sentido sur hasta la Calle 8 · Coger Calle 8 sentido occidente hasta la Carrera 26 (ECA Mártires).</p></td><td class="small">Tercer pesaje del día. Si el precio bajó respecto a la mañana, anótalo: es la señal de que la zona se está agotando.</td><td class="decir"><div class="say">«¿Me corrige el precio si el cartón va húmedo?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr>
+    </table>
+  </section>
+  <section class="day">
+    <div class="dayhead" style="border-left-color:#C56443">
+      <div>
+        <span class="pill" style="background:#C56443;color:#fff;border:none;margin:0">Martes</span>
+        <h3 style="margin:8px 0 2px">Ruta 2 · Norte</h3>
+        <p class="small" style="margin:0">Vidrio de restaurantes, PET y papel de oficina</p>
+      </div>
+      <div class="daymeta">
+        <div><span class="k">Carga</span><b>≈ 320 kg · 5 viajes</b></div>
+        <div><span class="k">Distancia</span><b>≈ 45 km ida y vuelta</b></div>
+        <div><span class="k">Descarga</span><b>Toberín (A1) · Mártires (A2) · P. Aranda (B)</b></div>
+      </div>
+    </div>
+    <div class="viajes">
+      <div class="vj"><span class="n">Tanda A · 3 viajes</span><b>80 + 60 + 60 kg</b><span class="d">$165.000 · 9:30–15:00</span></div>
+      <div class="vj"><span class="n">Tanda B · 2 viajes</span><b>60 + 60 kg</b><span class="d">$94.000 · 15:20–18:20</span></div>
+    </div>
+    <div class="ingreso"><span class="ig-k">Ingreso estimado del día</span><span class="ig-v">$259.000</span><span class="ig-r">rango $177.800 – $350.600</span><span class="ig-p" style="color:var(--muted)">86% de la meta diaria</span></div>
+    <table class="tramos"><thead><tr><th style="width:9%">Hora</th><th style="width:15%">Tramo</th><th style="width:28%">Por dónde y en qué sentido</th><th style="width:20%">Qué hacer</th><th style="width:28%">Qué decir y por quién preguntar</th></tr></thead>
+      
+      <tr><td class="num" style="white-space:nowrap"><b>9:30 – 10:30</b></td><td><b>Traslado al norte</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 19</b><i>→</i></span><span class="rt-ch"><b>Carrera 7</b><i>↑</i></span><span class="rt-ch"><b>Calle 63</b><i>→</i></span><span class="rt-ch"><b>Carrera 11</b><i>↑</i></span><span class="rt-ch"><b>Calle 116</b><i>←</i></span></div><p class="rt-cap">Coger Calle 19 sentido oriente hasta la Carrera 7 · Coger Carrera 7 sentido norte hasta la Calle 63 · Coger Calle 63 sentido oriente hasta la Carrera 11 · Coger Carrera 11 sentido norte hasta la Calle 116 · Coger Calle 116 sentido occidente hasta la Carrera 15.</p></td><td class="small">Es el tramo más largo de la semana. Si puedes, sal a las 9:00 para no comer hora pico.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>10:30 – 11:20</b></td><td><b>Usaquén · parada 1</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 15</b><i>↑</i></span><span class="rt-ch"><b>Calle 119</b><i>→</i></span></div><p class="rt-cap">Coger Carrera 15 sentido norte hasta la Calle 119 · Coger Calle 119 sentido oriente hasta la Carrera 6.</p></td><td class="small">Zona gastronómica: vidrio de restaurantes. Pregunta si aceptan vidrio entero. Aquí haces el primer corte: 80 kg.</td><td class="decir"><div class="say">«¿Me regala el vidrio de las botellas? Se lo llevo sin tapas.»</div><div class="who"><b>Preguntar por:</b> el administrador o el jefe de cocina</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>11:20 – 11:50</b></td><td><span class="tag-desc">&#9888; Descarga · tanda A</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 6</b><i>↑</i></span><span class="rt-ch"><b>Calle 119</b><i>←</i></span><span class="rt-ch"><b>Carrera 21</b><i>↑</i></span></div><p class="rt-cap">Coger Carrera 6 sentido norte hasta la Calle 119 · Coger Calle 119 sentido occidente hasta la Carrera 21 · Coger Carrera 21 sentido norte hasta la Calle 164 (ECA Toberín 1).</p></td><td class="small">ECA Toberín 1 (Carrera 21 N° 164-82). Por Carrera 21, <b>nunca</b> por la Autopista Norte. Confirma antes el precio del vidrio: si no conviene, no descargues y baja el vidrio a Mártires.</td><td class="decir"><div class="say">«¿Cuánto paga el vidrio verde y cuánto el transparente?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>11:50 – 12:45</b></td><td><b>Bajada a Chapinero</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 164</b><i>←</i></span><span class="rt-ch"><b>Carrera 15</b><i>↓</i></span></div><p class="rt-cap">Coger Calle 164 sentido occidente hasta la Carrera 15 · Coger Carrera 15 sentido sur hasta la Calle 72.</p></td><td class="small">Bajas vacío y sin carga en el cajón: es el tramo más rápido del día y el que menos castiga frenos.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>12:45 – 13:20</b></td><td><b>Chapinero · parada 2</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 7</b><i>↑</i></span><span class="rt-ch"><b>Calle 72</b><i>←</i></span><span class="rt-ch"><b>Carrera 11</b><i>↓</i></span></div><p class="rt-cap">Coger Carrera 7 sentido norte hasta la Calle 72 · Coger Calle 72 sentido occidente hasta la Carrera 11 · Coger Carrera 11 sentido sur hasta la Calle 63.</p></td><td class="small">Oficinas y cafés. El archivo de oficinas es el material más rentable del día.</td><td class="decir"><div class="say">«¿Me guarda el papel de oficina? No lo mezclo con el de la cocina.»</div><div class="who"><b>Preguntar por:</b> la recepcionista o el de servicios generales</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>13:20 – 13:50</b></td><td><b>Teusaquillo · parada 3</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 63</b><i>←</i></span><span class="rt-ch"><b>Carrera 30</b><i>↓</i></span><span class="rt-ch"><b>Calle 45</b><i>←</i></span></div><p class="rt-cap">Coger Calle 63 sentido occidente hasta la Carrera 30 · Coger Carrera 30 sentido sur hasta la Calle 45 · Coger Calle 45 sentido occidente hasta la Carrera 24.</p></td><td class="small">Universidades y oficinas pequeñas: papel y PET. Cierra el segundo corte en 60 kg.</td><td class="decir"><div class="say">«¿Dónde dejan el papel y el PET? Paso cada semana.»</div><div class="who"><b>Preguntar por:</b> el de servicios generales o el coordinador de aseo</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>13:50 – 14:25</b></td><td><span class="tag-desc">&#9888; Descarga · tanda A</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 24</b><i>↑</i></span><span class="rt-ch"><b>Calle 26</b><i>→</i></span><span class="rt-ch"><b>Carrera 17</b><i>↓</i></span></div><p class="rt-cap">Coger Carrera 24 sentido norte hasta la Calle 26 · Coger Calle 26 sentido oriente hasta la Carrera 17 · Coger Carrera 17 sentido sur hasta la Calle 8 (ECA Mártires).</p></td><td class="small">ECA Mártires. Dos pesajes, dos tickets: así sabes qué zona paga mejor.</td><td class="decir"><div class="say">«¿Me anota el precio por tipo de papel?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr>
+<tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>14:45 – 15:10</b></td><td><b>Tanda B · Corferias</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 17</b><i>↑</i></span><span class="rt-ch"><b>Calle 26</b><i>←</i></span></div><p class="rt-cap">Coger Carrera 17 sentido norte hasta la Calle 26 · Coger Calle 26 sentido occidente hasta la Carrera 36.</p></td><td class="small">No vuelves al norte: sería 16 km de traslado para 120 kg. La tanda B trabaja la zona de oficinas que queda a 3 km de la bodega.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>15:10 – 16:00</b></td><td><b>Quinta Paredes · hoteles y oficinas</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 36</b><i>↑</i></span><span class="rt-ch"><b>Calle 26</b><i>←</i></span><span class="rt-ch"><b>Carrera 40</b><i>↓</i></span></div><p class="rt-cap">Coger Carrera 36 sentido norte hasta la Calle 26 · Coger Calle 26 sentido occidente hasta la Carrera 40 · Coger Carrera 40 sentido sur hasta la Calle 24.</p></td><td class="small">Hoteles y oficinas: papel, PET y vidrio de cocina. A esta hora ya botaron lo del almuerzo.</td><td class="decir"><div class="say">«¿Me aparta el vidrio de la cocina y las botellas del bar?»</div><div class="who"><b>Preguntar por:</b> el ama de llaves o el jefe de cocina</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>16:00 – 16:45</b></td><td><b>Centro Internacional</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 24</b><i>←</i></span><span class="rt-ch"><b>Carrera 43</b><i>↑</i></span><span class="rt-ch"><b>Calle 26</b><i>←</i></span></div><p class="rt-cap">Coger Calle 24 sentido occidente hasta la Carrera 43 · Coger Carrera 43 sentido norte hasta la Calle 26 · Coger Calle 26 sentido occidente hasta la Carrera 50.</p></td><td class="small">Oficinas y notarías. El archivo de oficina sigue siendo lo mejor pagado de la tarde.</td><td class="decir"><div class="say">«¿Me avisa cuando saquen el archivo, para no dejarlo en la calle?»</div><div class="who"><b>Preguntar por:</b> la recepcionista o el administrador del edificio</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>16:45 – 17:15</b></td><td><b>Cierre · Corferias</b></td><td><div class="rt-chips"><span class="rt-ch rt-sal"><b>Carrera 50 · Calle 26</b></span><span class="rt-ch"><b>Calle 26</b><i>→</i></span></div><p class="rt-cap">Sales de la base: Carrera 50 con Calle 26 · Coger Calle 26 sentido oriente hasta la Carrera 40.</p></td><td class="small">Última pasada. Cierra la tanda en 120 kg repartidos en dos viajes.</td><td class="decir"><div class="say">«¿Le quedó algo de la tarde?»</div><div class="who"><b>Preguntar por:</b> el administrador del local</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>17:15 – 17:45</b></td><td><span class="tag-desc">&#9888; Descarga · tanda B</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 26</b><i>→</i></span><span class="rt-ch"><b>Carrera 42A</b><i>↓</i></span></div><p class="rt-cap">Coger Calle 26 sentido oriente hasta la Carrera 42A · Coger Carrera 42A sentido sur hasta la Calle 10A (ECA Puente Aranda 1).</p></td><td class="small">ECA Puente Aranda 1 (Carrera 42A N° 10A-37). Te deja a 2,5 km de la bodega.</td><td class="decir"><div class="say">«¿Me pesa por separado el PET y el papel?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr>
+    </table>
+  </section>
+  <section class="day">
+    <div class="dayhead" style="border-left-color:#C68E31">
+      <div>
+        <span class="pill" style="background:#C68E31;color:#fff;border:none;margin:0">Miércoles</span>
+        <h3 style="margin:8px 0 2px">Ruta 3 · Occidente</h3>
+        <p class="small" style="margin:0">Chatarra, cobre, latón y aluminio de taller</p>
+      </div>
+      <div class="daymeta">
+        <div><span class="k">Carga</span><b>≈ 212 kg · 3 viajes</b></div>
+        <div><span class="k">Distancia</span><b>≈ 44 km ida y vuelta</b></div>
+        <div><span class="k">Descarga</span><b>P. Aranda (B) · Fontibón (A)</b></div>
+      </div>
+    </div>
+    <div class="viajes">
+      <div class="vj"><span class="n">Tanda B · 1 viaje</span><b>≈ 80 kg</b><span class="d">$237.500 · 7:30–11:00</span></div>
+      <div class="vj"><span class="n">Tanda A · 2 viajes</span><b>66 + 66 kg</b><span class="d">$392.000 · 13:30–18:40</span></div>
+    </div>
+    <div class="ingreso"><span class="ig-k">Ingreso estimado del día</span><span class="ig-v">$629.500</span><span class="ig-r">rango $428.000 – $880.000</span><span class="ig-p" style="color:var(--green)">210% de la meta diaria</span></div>
+    <table class="tramos"><thead><tr><th style="width:9%">Hora</th><th style="width:15%">Tramo</th><th style="width:28%">Por dónde y en qué sentido</th><th style="width:20%">Qué hacer</th><th style="width:28%">Qué decir y por quién preguntar</th></tr></thead>
+      
+      <tr><td class="num" style="white-space:nowrap"><b>7:30 – 7:50</b></td><td><b>Tanda B · Puente Aranda</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 8</b><i>←</i></span><span class="rt-ch"><b>Carrera 26</b><i>↓</i></span><span class="rt-ch"><b>Calle 10</b><i>←</i></span></div><p class="rt-cap">Coger Calle 8 sentido occidente hasta la Carrera 26 · Coger Carrera 26 sentido sur hasta la Calle 10 · Coger Calle 10 sentido occidente hasta la Carrera 42A.</p></td><td class="small">La tanda B va primero porque los talleres abren a las 7 y sueltan la chatarra del día anterior antes de empezar a trabajar.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>7:50 – 8:50</b></td><td><b>Zona industrial · Carrera 50</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 42A</b><i>↓</i></span><span class="rt-ch"><b>Calle 10</b><i>←</i></span><span class="rt-ch"><b>Carrera 50</b><i>↑</i></span></div><p class="rt-cap">Coger Carrera 42A sentido sur hasta la Calle 10 · Coger Calle 10 sentido occidente hasta la Carrera 50 · Coger Carrera 50 sentido norte hasta la Calle 22.</p></td><td class="small">Talleres de mecánica y latonería: chatarra, aluminio y radiadores. Es el material más pesado y el mejor pagado.</td><td class="decir"><div class="say">«¿La chatarra y el radiador los vende? Pago por kilo hoy mismo.»</div><div class="who"><b>Preguntar por:</b> el maestro de taller o el dueño</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>8:50 – 9:50</b></td><td><b>Bodegas de Calle 13</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 22</b><i>←</i></span><span class="rt-ch"><b>Carrera 50</b><i>↓</i></span><span class="rt-ch"><b>Calle 13</b><i>←</i></span></div><p class="rt-cap">Coger Calle 22 sentido occidente hasta la Carrera 50 · Coger Carrera 50 sentido sur hasta la Calle 13 · Coger Calle 13 sentido occidente hasta la Carrera 68.</p></td><td class="small">Bodegas y depósitos que reciben mercancía en la mañana: lámina, varilla y canastas.</td><td class="decir"><div class="say">«¿Le sobra lámina o canasta de la mercancía que recibió?»</div><div class="who"><b>Preguntar por:</b> el jefe de bodega</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>9:50 – 10:30</b></td><td><b>Cierre de la tanda</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 68</b><i>↑</i></span><span class="rt-ch"><b>Calle 13</b><i>→</i></span></div><p class="rt-cap">Coger Carrera 68 sentido norte hasta la Calle 13 · Coger Calle 13 sentido oriente hasta la Carrera 42A.</p></td><td class="small">Corta en 80 kg. Con metal no se “completa”: una caja más de chatarra son 30 kg y dos cuadras de frenada.</td><td class="decir"><div class="say">«¿Me guarda el cobre aparte? Lo pago mejor que la chatarra.»</div><div class="who"><b>Preguntar por:</b> el maestro de taller</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>10:30 – 11:00</b></td><td><span class="tag-desc">&#9888; Descarga · tanda B</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 42A</b><i>↓</i></span></div><p class="rt-cap">Coger Carrera 42A sentido sur hasta la Calle 10A (ECA Puente Aranda 1).</p></td><td class="small">ECA Puente Aranda 1. Compara el precio del cobre y el latón con Depósito Gaitán antes de cerrar.</td><td class="decir"><div class="say">«¿A cómo el cobre limpio, el cobre #2 y el latón?»</div><div class="who"><b>Preguntar por:</b> el pesador o el administrador</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>13:30 – 14:20</b></td><td><b>Tanda A · salida al suroccidente</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 13</b><i>←</i></span><span class="rt-ch"><b>Carrera 50</b><i>↓</i></span><span class="rt-ch"><b>Avenida 68</b><i>↓</i></span><span class="rt-ch"><b>Avenida Boyacá</b><i>↓</i></span><span class="rt-ch"><b>Autopista Sur</b><i>↓</i></span><span class="rt-ch"><b>Avenida Bosa</b><i>←</i></span></div><p class="rt-cap">Coger Calle 13 sentido occidente hasta la Carrera 50 · Coger Carrera 50 sentido sur hasta la Avenida 68 · Coger Avenida 68 sentido sur hasta la Avenida Boyacá · Coger Avenida Boyacá sentido sur hasta la Autopista Sur · Coger Autopista Sur sentido sur hasta la Avenida Bosa · Coger Avenida Bosa sentido occidente hasta la Carrera 86 (Bosa).</p></td><td class="small">Cajón vacío y bolsas separadas por tipo de metal. Entre tandas comes y revisas frenos: es el día de más peso.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>14:20 – 15:10</b></td><td><b>Bosa · parada 1</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Avenida Bosa</b><i>←</i></span></div><p class="rt-cap">Coger Avenida Bosa sentido occidente hasta la Carrera 86.</p></td><td class="small">Talleres pequeños y bodegas: chatarra y aluminio.</td><td class="decir"><div class="say">«¿Tiene aluminio de latonería? Es lo que mejor se paga hoy.»</div><div class="who"><b>Preguntar por:</b> el dueño del taller</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>15:10 – 16:00</b></td><td><b>Kennedy · parada 2</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 86</b><i>↑</i></span><span class="rt-ch"><b>Avenida 1° de Mayo</b><i>→</i></span></div><p class="rt-cap">Coger Carrera 86 sentido norte hasta la Avenida 1° de Mayo · Coger Avenida 1° de Mayo sentido oriente hasta la Carrera 80.</p></td><td class="small">La zona de talleres más densa. Aquí sale el cobre y el latón.</td><td class="decir"><div class="say">«¿Vende el cobre de los motores o lo acumula?»</div><div class="who"><b>Preguntar por:</b> el jefe de taller</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>16:00 – 16:40</b></td><td><b>Fontibón · parada 3</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 80</b><i>↑</i></span><span class="rt-ch"><b>Calle 17</b><i>←</i></span></div><p class="rt-cap">Coger Carrera 80 sentido norte hasta la Calle 17 · Coger Calle 17 sentido occidente hasta la Carrera 100.</p></td><td class="small">Industria y bodegas. Cierra con chatarra pesada.</td><td class="decir"><div class="say">«¿La chatarra pesada la saca por kilos o por lote?»</div><div class="who"><b>Preguntar por:</b> el jefe de planta o de mantenimiento</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>16:40 – 17:10</b></td><td><span class="tag-desc">&#9888; Descarga · tanda A</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 17A</b><i>→</i></span></div><p class="rt-cap">Coger Calle 17A sentido oriente hasta la Carrera 69F (ECA Fontibón).</p></td><td class="small">ECA Fontibón. Si traes cobre o latón, compara con Depósito Gaitán antes de vender.</td><td class="decir"><div class="say">«¿Me compara el precio del cobre con el de Depósito Gaitán?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>17:10 – 17:50</b></td><td><b>Regreso vacío</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 17</b><i>→</i></span><span class="rt-ch"><b>Carrera 68</b><i>↓</i></span><span class="rt-ch"><b>Calle 13</b><i>→</i></span></div><p class="rt-cap">Coger Calle 17 sentido oriente hasta la Carrera 68 · Coger Carrera 68 sentido sur hasta la Calle 13 · Coger Calle 13 sentido oriente hasta la Carrera 17.</p></td><td class="small">Vuelves sin carga: es más rápido y no castiga el triciclo.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr>
+    </table>
+  </section>
+  <section class="day">
+    <div class="dayhead" style="border-left-color:#836687">
+      <div>
+        <span class="pill" style="background:#836687;color:#fff;border:none;margin:0">Jueves</span>
+        <h3 style="margin:8px 0 2px">Ruta 4 · Sur</h3>
+        <p class="small" style="margin:0">PET, latas y cartón residencial</p>
+      </div>
+      <div class="daymeta">
+        <div><span class="k">Carga</span><b>≈ 285 kg · 5 viajes</b></div>
+        <div><span class="k">Distancia</span><b>≈ 31 km</b></div>
+        <div><span class="k">Descarga</span><b>ECA Mártires</b></div>
+      </div>
+    </div>
+    <div class="viajes">
+      <div class="vj"><span class="n">Tanda B · 2 viajes</span><b>50 + 50 kg</b><span class="d">$79.000 · 10:45–13:20</span></div>
+      <div class="vj"><span class="n">Tanda A · 3 viajes</span><b>80 + 60 + 45 kg</b><span class="d">$166.650 · 16:00–19:50</span></div>
+    </div>
+    <div class="ingreso"><span class="ig-k">Ingreso estimado del día</span><span class="ig-v">$245.650</span><span class="ig-r">rango $160.900 – $340.100</span><span class="ig-p" style="color:var(--muted)">82% de la meta diaria</span></div>
+    <table class="tramos"><thead><tr><th style="width:9%">Hora</th><th style="width:15%">Tramo</th><th style="width:28%">Por dónde y en qué sentido</th><th style="width:20%">Qué hacer</th><th style="width:28%">Qué decir y por quién preguntar</th></tr></thead>
+      
+      <tr><td class="num" style="white-space:nowrap"><b>10:45 – 11:00</b></td><td><b>Tanda B · comercio de barrio</b></td><td><div class="rt-chips"><span class="rt-ch rt-sal"><b>Calle 8 · Cra 26</b></span><span class="rt-ch"><b>Carrera 26</b><i>↓</i></span><span class="rt-ch"><b>Calle 10</b><i>→</i></span></div><p class="rt-cap">Sales de la base: Calle 8 con Carrera 26 · Coger Carrera 26 sentido sur hasta la Calle 10 · Coger Calle 10 sentido oriente hasta la Carrera 24.</p></td><td class="small">Jornada partida: la tanda B va de mañana por el comercio, la A de tarde por lo residencial. Entre las dos, almuerzas y revisas la carga.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>11:00 – 11:45</b></td><td><b>La Favorita y San Bernardo</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 24</b><i>↓</i></span><span class="rt-ch"><b>Calle 17</b><i>→</i></span></div><p class="rt-cap">Coger Carrera 24 sentido sur hasta la Calle 17 · Coger Calle 17 sentido oriente hasta la Carrera 17.</p></td><td class="small">Tiendas y panaderías que reciben mercancía en la mañana: cartón, canastillas y plástico de empaque.</td><td class="decir"><div class="say">«¿Me guarda las cajas de la mañana? Vuelvo a las 11.»</div><div class="who"><b>Preguntar por:</b> el dueño o el panadero</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>11:45 – 12:30</b></td><td><b>Antonio Nariño · comercio</b></td><td><div class="rt-chips"><span class="rt-ch rt-sal"><b>Carrera 17 · Calle 17 Sur</b></span><span class="rt-ch"><b>Calle 17 Sur</b><i>←</i></span></div><p class="rt-cap">Sales de la base: Carrera 17 con Calle 17 Sur · Coger Calle 17 Sur sentido occidente hasta la Carrera 51.</p></td><td class="small">Comercio de la 17 Sur. El PET y el cartón de tienda son de la mañana, no de la tarde.</td><td class="decir"><div class="say">«¿Me da las botellas sin tapa y las cajas de la tienda?»</div><div class="who"><b>Preguntar por:</b> el administrador del local</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>12:30 – 13:00</b></td><td><span class="tag-desc">&#9888; Descarga · tanda B</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 17 Sur</b><i>→</i></span><span class="rt-ch"><b>Carrera 24</b><i>↑</i></span><span class="rt-ch"><b>Calle 8</b><i>←</i></span></div><p class="rt-cap">Coger Calle 17 Sur sentido oriente hasta la Carrera 24 · Coger Carrera 24 sentido norte hasta la Calle 8 · Coger Calle 8 sentido occidente hasta la Carrera 26 (ECA Mártires).</p></td><td class="small">ECA Mártires. Cierra la tanda B en 100 kg, en dos viajes de 50: el cajón debe quedar holgado para la tarde.</td><td class="decir"><div class="say">«¿Me pesa el PET aparte del cartón?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>16:00 – 16:25</b></td><td><b>Tanda A · salida al sur</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 13</b><i>←</i></span><span class="rt-ch"><b>Carrera 24</b><i>↓</i></span><span class="rt-ch"><b>Calle 17 Sur</b><i>←</i></span></div><p class="rt-cap">Coger Calle 13 sentido occidente hasta la Carrera 24 · Coger Carrera 24 sentido sur hasta la Calle 17 Sur · Coger Calle 17 Sur sentido occidente hasta la Carrera 50.</p></td><td class="small">Hora de salida de colegios y oficinas: la gente ya sacó el reciclable del día.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>16:25 – 17:05</b></td><td><b>Rafael Uribe Uribe · parada 1</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 32 Sur</b><i>→</i></span></div><p class="rt-cap">Coger Calle 32 Sur sentido oriente hasta la Carrera 10.</p></td><td class="small">Residencial: PET y latas, más el cartón de las tiendas de barrio. El PET es liviano y engaña: pesa a ojo cada costal.</td><td class="decir"><div class="say">«¿Me deja el PET y las latas aparte? Paso cada ocho días.»</div><div class="who"><b>Preguntar por:</b> el dueño de casa o el de la tienda</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>17:05 – 17:40</b></td><td><b>Tunjuelito · parada 2</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 47 Sur</b><i>←</i></span></div><p class="rt-cap">Coger Calle 47 Sur sentido occidente hasta la Carrera 51.</p></td><td class="small">Residencial y comercio de barrio. Aquí haces el primer corte en 80 kg: deja de recoger vidrio.</td><td class="decir"><div class="say">«¿Dónde deja el reciclable, para no revolverlo?»</div><div class="who"><b>Preguntar por:</b> el de la tienda o el administrador del conjunto</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>17:40 – 18:15</b></td><td><span class="tag-desc">&#9888; Descarga · tanda A</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 17 Sur</b><i>→</i></span><span class="rt-ch"><b>Carrera 24</b><i>↑</i></span><span class="rt-ch"><b>Calle 8</b><i>←</i></span></div><p class="rt-cap">Coger Calle 17 Sur sentido oriente hasta la Carrera 24 · Coger Carrera 24 sentido norte hasta la Calle 8 · Coger Calle 8 sentido occidente hasta la Carrera 26 (ECA Mártires).</p></td><td class="small">ECA Mártires, unos 5 km. Con 80 kg llegas en 25 minutos; con los 185 de una sola vez eran 45.</td><td class="decir"><div class="say">«¿A cómo está el PET hoy?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>18:15 – 18:35</b></td><td><b>Vuelta a Antonio Nariño</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 8</b><i>→</i></span><span class="rt-ch"><b>Carrera 24</b><i>↓</i></span></div><p class="rt-cap">Coger Calle 8 sentido oriente hasta la Carrera 24 · Coger Carrera 24 sentido sur hasta la Calle 17 Sur.</p></td><td class="small">Vuelves liviano y en subida suave. Enciende luces: a esta hora ya está oscureciendo.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>18:35 – 18:55</b></td><td><b>Antonio Nariño · parada 3</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 17 Sur</b><i>←</i></span></div><p class="rt-cap">Coger Calle 17 Sur sentido occidente hasta la Carrera 51.</p></td><td class="small">Última recolección. Cierra en 45 kg: no sumes vidrio para “aprovechar el viaje”.</td><td class="decir"><div class="say">«¿Le queda vidrio? A esta hora ya no lo recibo.»</div><div class="who"><b>Preguntar por:</b> el de la tienda</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>18:55 – 19:10</b></td><td><span class="tag-desc">&#9888; Descarga · tanda A</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 13</b><i>←</i></span><span class="rt-ch"><b>Carrera 26</b><i>↓</i></span></div><p class="rt-cap">Coger Calle 13 sentido occidente hasta la Carrera 26 · Coger Carrera 26 sentido sur hasta la Calle 8 (ECA Mártires).</p></td><td class="small">1,5 km: el tramo cargado más corto de la semana. <b>Sin luces, no hagas este viaje:</b> deja los 45 kg para el sábado y el día baja a $132.000.</td><td class="decir"><div class="say">«¿Me cierra el día con ticket?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr>
+    </table>
+  </section>
+  <section class="day">
+    <div class="dayhead" style="border-left-color:#3E7096">
+      <div>
+        <span class="pill" style="background:#3E7096;color:#fff;border:none;margin:0">Viernes</span>
+        <h3 style="margin:8px 0 2px">Ruta 1 · repaso</h3>
+        <p class="small" style="margin:0">Repetir los clientes que ya dijeron sí</p>
+      </div>
+      <div class="daymeta">
+        <div><span class="k">Carga</span><b>≈ 265 kg · 5 viajes</b></div>
+        <div><span class="k">Distancia</span><b>≈ 15 km</b></div>
+        <div><span class="k">Descarga</span><b>ECA Mártires</b></div>
+      </div>
+    </div>
+    <div class="viajes">
+      <div class="vj"><span class="n">Tanda A · 3 viajes</span><b>80 + 45 + 45 kg</b><span class="d">$160.650 · 5:00–8:40</span></div>
+      <div class="vj"><span class="n">Tanda B · 2 viajes</span><b>50 + 45 kg</b><span class="d">$84.000 · 9:00–12:15</span></div>
+    </div>
+    <div class="ingreso"><span class="ig-k">Ingreso estimado del día</span><span class="ig-v">$244.650</span><span class="ig-r">rango $156.400 – $340.300</span><span class="ig-p" style="color:var(--muted)">82% de la meta diaria</span></div>
+    <table class="tramos"><thead><tr><th style="width:9%">Hora</th><th style="width:15%">Tramo</th><th style="width:28%">Por dónde y en qué sentido</th><th style="width:20%">Qué hacer</th><th style="width:28%">Qué decir y por quién preguntar</th></tr></thead>
+      
+      <tr><td class="num" style="white-space:nowrap"><b>5:00 – 5:20</b></td><td><b>Salida</b></td><td><div class="rt-chips"><span class="rt-ch rt-sal"><b>Calle 17 · Cra 17</b></span><span class="rt-ch"><b>Carrera 17</b><i>↑</i></span><span class="rt-ch"><b>Calle 19</b><i>→</i></span></div><p class="rt-cap">Sales de la base: Calle 17 con Carrera 17 · Coger Carrera 17 sentido norte hasta la Calle 19 · Coger Calle 19 sentido oriente hasta la Carrera 7.</p></td><td class="small">Solo clientes fijos. No abras negocios nuevos este día.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>5:20 – 6:30</b></td><td><b>Núcleo de la ruta 1 · corte 1</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 7</b><i>↑</i></span><span class="rt-ch"><b>Calle 26</b><i>→</i></span><span class="rt-ch"><b>Carrera 7</b><i>↓</i></span></div><p class="rt-cap">Coger Carrera 7 sentido norte hasta la Calle 26 · Coger Calle 26 sentido oriente hasta la Carrera 7 · Coger Carrera 7 sentido sur hasta la Calle 24.</p></td><td class="small">Pasa únicamente por donde ya te guardaron material. Corta en 80 kg.</td><td class="decir"><div class="say">«¿Ya tiene lo de esta semana? Vengo por lo de siempre.»</div><div class="who"><b>Preguntar por:</b> el cliente fijo, por su nombre</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>6:30 – 6:55</b></td><td><span class="tag-desc">&#9888; Descarga · tanda A</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 13</b><i>←</i></span><span class="rt-ch"><b>Carrera 26</b><i>↓</i></span></div><p class="rt-cap">Coger Calle 13 sentido occidente hasta la Carrera 26 · Coger Carrera 26 sentido sur hasta la Calle 8 (ECA Mártires).</p></td><td class="small">Misma bodega del lunes: ya te conocen y pesan rápido.</td><td class="decir"><div class="say">«¿Me pesa rápido? Ya me conoce.»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>6:55 – 7:40</b></td><td><b>Vuelta corta · San Andresito</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 8</b><i>→</i></span><span class="rt-ch"><b>Carrera 17</b><i>↑</i></span><span class="rt-ch"><b>Calle 13</b><i>→</i></span></div><p class="rt-cap">Coger Calle 8 sentido oriente hasta la Carrera 17 · Coger Carrera 17 sentido norte hasta la Calle 13 · Coger Calle 13 sentido oriente hasta la Carrera 10.</p></td><td class="small">Completa el día con plegadizo de San Andresito y La Concordia, ahora con el cajón vacío.</td><td class="decir"><div class="say">«¿Me completa con plegadizo? Es para el mismo acopio.»</div><div class="who"><b>Preguntar por:</b> el dueño del local</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>7:40 – 8:10</b></td><td><span class="tag-desc">&#9888; Descarga · tanda A</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 13</b><i>←</i></span><span class="rt-ch"><b>Carrera 26</b><i>↓</i></span></div><p class="rt-cap">Coger Calle 13 sentido occidente hasta la Carrera 26 · Coger Carrera 26 sentido sur hasta la Calle 8 (ECA Mártires).</p></td><td class="small">Segundo pesaje del día. Cierra la semana anotando qué cliente rindió más por kilómetro.</td><td class="decir"><div class="say">«¿Me anota el acumulado de la semana?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr>
+<tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>8:30 – 8:50</b></td><td><b>Tanda B · Las Cruces</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 26</b><i>↓</i></span><span class="rt-ch"><b>Calle 6</b><i>→</i></span></div><p class="rt-cap">Coger Carrera 26 sentido sur hasta la Calle 6 · Coger Calle 6 sentido oriente hasta la Carrera 14.</p></td><td class="small">Zona que la madrugada no alcanzó: aquí el comercio abre a las 8, no a las 5.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>8:50 – 9:50</b></td><td><b>Las Cruces y La Concordia</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 6</b><i>→</i></span><span class="rt-ch"><b>Carrera 10</b><i>↑</i></span><span class="rt-ch"><b>Calle 19</b><i>→</i></span></div><p class="rt-cap">Coger Calle 6 sentido oriente hasta la Carrera 10 · Coger Carrera 10 sentido norte hasta la Calle 19 · Coger Calle 19 sentido oriente hasta la Carrera 4.</p></td><td class="small">Talleres, imprentas y depósitos pequeños. El papel de imprenta y el plegadizo son lo que más sale.</td><td class="decir"><div class="say">«¿Me da el recorte de papel de imprenta? Es el que mejor pagan.»</div><div class="who"><b>Preguntar por:</b> el dueño de la imprenta</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>9:50 – 10:40</b></td><td><b>Calle 13 · comercio</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 13</b><i>←</i></span></div><p class="rt-cap">Coger Calle 13 sentido occidente hasta la Carrera 17.</p></td><td class="small">Pasada por los mismos clientes del lunes, pero ahora a media mañana: ya repusieron.</td><td class="decir"><div class="say">«¿Le quedó algo de ayer que no alcanzó?»</div><div class="who"><b>Preguntar por:</b> el que atiende</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>10:40 – 11:15</b></td><td><b>Cierre de la semana</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 19</b><i>←</i></span></div><p class="rt-cap">Coger Calle 19 sentido occidente hasta la Carrera 26.</p></td><td class="small">Si faltó material, completa con plegadizo de San Andresito. Tope: 45 kg.</td><td class="decir"><div class="say">«¿Me guarda lo de la próxima semana?»</div><div class="who"><b>Preguntar por:</b> el dueño del local</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>11:15 – 11:45</b></td><td><span class="tag-desc">&#9888; Descarga · tanda B</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Carrera 26</b><i>↓</i></span></div><p class="rt-cap">Coger Carrera 26 sentido sur hasta la Calle 8 (ECA Mártires).</p></td><td class="small">Cuarto pesaje del viernes. Suma los kilos de la semana en la plantilla y ajusta la ruta del lunes.</td><td class="decir"><div class="say">«¿Me suma los cuatro pesajes de hoy?»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr>
+    </table>
+  </section>
+  <section class="day">
+    <div class="dayhead" style="border-left-color:#5b6b7c">
+      <div>
+        <span class="pill" style="background:#5b6b7c;color:#fff;border:none;margin:0">Sábado</span>
+        <h3 style="margin:8px 0 2px">Mixta · clientes fijos</h3>
+        <p class="small" style="margin:0">Metales acumulados de la semana y repaso general</p>
+      </div>
+      <div class="daymeta">
+        <div><span class="k">Carga</span><b>≈ 120 kg · 2 viajes</b></div>
+        <div><span class="k">Distancia</span><b>≈ 24 km</b></div>
+        <div><span class="k">Descarga</span><b>ECA Kennedy · Depósito Gaitán</b></div>
+      </div>
+    </div>
+    <div class="viajes">
+      <div class="vj"><span class="n">Tanda A · 1 viaje</span><b>≈ 75 kg</b><span class="d">$196.500 · 8:00–12:30</span></div>
+      <div class="vj"><span class="n">Tanda B · 1 viaje</span><b>≈ 45 kg</b><span class="d">$117.200 · 12:45–14:15</span></div>
+    </div>
+    <div class="ingreso"><span class="ig-k">Ingreso estimado del día</span><span class="ig-v">$313.700</span><span class="ig-r">rango $176.000 – $486.500</span><span class="ig-p" style="color:var(--green)">105% de la meta diaria</span></div>
+    <table class="tramos"><thead><tr><th style="width:9%">Hora</th><th style="width:15%">Tramo</th><th style="width:28%">Por dónde y en qué sentido</th><th style="width:20%">Qué hacer</th><th style="width:28%">Qué decir y por quién preguntar</th></tr></thead>
+      
+      <tr><td class="num" style="white-space:nowrap"><b>8:00 – 9:00</b></td><td><b>Ruta corta</b></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 13</b><i>←</i></span><span class="rt-ch"><b>Carrera 50</b><i>↓</i></span></div><p class="rt-cap">Coger Calle 13 sentido occidente hasta la Carrera 50 · Coger Carrera 50 sentido sur hasta la Avenida 68.</p></td><td class="small">Día para cerrar el material que quedó a medias.</td><td class="decir"><div class="say">Nada que pedir: vas vacío o de regreso.</div><div class="who">Sin gestión en este tramo.</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>9:00 – 11:30</b></td><td><b>Recolección puntual</b></td><td><div class="rt-chips"><span class="rt-ch rt-sal"><b>Carrera 80 · Calle 17</b></span><span class="rt-ch"><b>Calle 17</b><i>←</i></span></div><p class="rt-cap">Sales de la base: Carrera 80 con Calle 17 · Coger Calle 17 sentido occidente hasta la Carrera 100.</p></td><td class="small">Solo direcciones que ya confirmaste por WhatsApp.</td><td class="decir"><div class="say">«Le confirmé por WhatsApp, vengo por lo que acordamos.»</div><div class="who"><b>Preguntar por:</b> la persona que confirmó el domicilio</div></td></tr><tr><td class="num" style="white-space:nowrap"><b>11:30 – 12:30</b></td><td><span class="tag-desc">&#9888; Descarga · tanda A</span></td><td><span class="rt-cap">Ruta corta hasta el destino elegido</span></td><td class="small">Primer pesaje del sábado. Guarda el ticket: es el que cierra la cuenta de la semana.</td><td class="decir"><div class="say">«¿Me guarda el ticket? Es el que cierra la semana.»</div><div class="who"><b>Preguntar por:</b> el pesador de la ECA</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>12:45 – 13:30</b></td><td><b>Tanda B · metales de taller</b></td><td><div class="rt-chips"><span class="rt-ch rt-sal"><b>Carrera 80 · Calle 17</b></span><span class="rt-ch"><b>Calle 17</b><i>←</i></span></div><p class="rt-cap">Sales de la base: Carrera 80 con Calle 17 · Coger Calle 17 sentido occidente hasta la Carrera 100.</p></td><td class="small">Segunda pasada por el occidente: los talleres del sábado sueltan la chatarra de la semana antes de cerrar.</td><td class="decir"><div class="say">«¿Tiene la chatarra de la semana apartada?»</div><div class="who"><b>Preguntar por:</b> el maestro de taller</div></td></tr><tr style="background:#fbfaf5"><td class="num" style="white-space:nowrap"><b>13:30 – 14:15</b></td><td><span class="tag-desc">&#9888; Cierre · depósito o ECA</span></td><td><div class="rt-chips"><span class="rt-ch"><b>Calle 17</b><i>→</i></span></div><p class="rt-cap">Coger Calle 17 sentido oriente hasta la Carrera 80.</p></td><td class="small">Depósito Gaitán o ECA Kennedy. Con esto cierra la semana: cuenta kilos, precio y kilómetros por tanda.</td><td class="decir"><div class="say">«¿Me cierra la cuenta de la semana?»</div><div class="who"><b>Preguntar por:</b> el administrador del depósito</div></td></tr>
+    </table>
+  </section>
+
+  <div class="note warn">
+    <strong>Esto no es un GPS.</strong>
+    Los corredores son las vías principales que conectan las zonas de cada ruta. Sirven para orientarte, no para seguir giro por giro. Haz una vuelta en seco por cada ruta antes de cargar.
+  </div>
+
+  <div class="note stop">
+    <strong>El triciclo no va por autopistas.</strong>
+    Nada de Autopista Norte, Autopista Sur ni carriles rápidos de la NQS con carga. Usa vías locales, calzada lenta y ciclorruta donde exista.
+  </div>
+
+  <h2>Dos tandas por día</h2>
+
+  <p><b>Regla: dos tandas diarias, y ningún viaje pasa de 80 kg.</b> No es una meta de peso: es el límite de las ruedas de 36 radios de esta unidad. El corte se hace cuando el cajón llega a 80 kg, no cuando suena la hora. La tanda A trabaja el corredor principal en su mejor hora. La tanda B vuelve a la zona —o a la de al lado— cuando ese material se repone: el comercio a media mañana, las oficinas a media tarde, los talleres temprano. No es la misma cuadra dos veces: es la segunda capa de la misma zona.</p>
+
+  <table style="font-size:12.5px">
+    <tr><th style="width:10%">Día</th><th style="width:27%">Tanda A</th><th style="width:31%">Tanda B</th><th style="width:11%">Viajes · kg</th><th>Ingreso</th></tr>
+    <tr><td><b>Lunes</b></td><td>5:00–9:25 · 3 viajes · Santa Fe, Candelaria</td><td>9:50–13:10 · Voto Nacional, La Pepita, Calle 13</td><td class="num">5 · 265</td><td class="num"><b>$244.650</b></td></tr>
+    <tr><td><b>Martes</b></td><td>9:30–15:00 · 3 viajes · Usaquén, Chapinero</td><td>15:20–18:20 · Corferias, Centro Internacional</td><td class="num">5 · 320</td><td class="num"><b>$259.000</b></td></tr>
+    <tr><td><b>Miércoles</b></td><td>13:30–18:40 · 2 viajes · Bosa, Kennedy, Fontibón</td><td>7:30–11:00 · Puente Aranda industrial</td><td class="num">3 · 212</td><td class="num"><b>$629.500</b></td></tr>
+    <tr><td><b>Jueves</b></td><td>16:00–19:50 · 3 viajes · Rafael Uribe, Tunjuelito</td><td>10:45–13:20 · comercio de La Favorita y A. Nariño</td><td class="num">5 · 285</td><td class="num"><b>$245.650</b></td></tr>
+    <tr><td><b>Viernes</b></td><td>5:00–8:40 · 3 viajes · clientes fijos</td><td>9:00–12:15 · Las Cruces, La Concordia</td><td class="num">5 · 265</td><td class="num"><b>$244.650</b></td></tr>
+    <tr><td><b>Sábado</b></td><td>8:00–12:30 · lo confirmado por WhatsApp</td><td>12:45–14:15 · metales de taller del occidente</td><td class="num">2 · 120</td><td class="num"><b>$313.700</b></td></tr>
+    <tr style="background:#f0f4f8"><td><b>Semana</b></td><td><b>12 tandas</b></td><td>Todas de ≤ 80 kg por viaje</td><td class="num"><b>25 · 1.467</b></td><td class="num"><b>$1.937.150</b></td></tr>
+  </table>
+
+  <div class="note">
+    <strong>La meta deja de ser una apuesta.</strong>
+    $1.937.150 sobre $1.800.000 son <b>108%</b>, con un promedio de <b>$322.900 por día</b> en vez de $207.000. Ya no hace falta un golpe de suerte un miércoles: el plan cierra con la tanda B, que aporta $695.700 de los $1.937.150.
+  </div>
+
+  <div class="note warn">
+    <strong>Bajar a 80 kg cuesta tiempo, no plata.</strong>
+    De 17 a <b>25 viajes</b> y de 165 a unos <b>185 km</b> por semana: cada corte extra son 20–25 minutos de ida al acopio, pesaje y vuelta a la zona. En total, <b>+3 h 15</b> semanales. El miércoles es el que más paga el cambio (+50 min, porque el corte cae en el occidente lejano) y el jueves pasa a cerrar a las 19:50: si no hay luces, ese día se queda en 4 viajes y los 60 kg restantes pasan al sábado.
+  </div>
+
+  <div class="note warn">
+    <strong>El supuesto que sostiene la cuenta.</strong>
+    La tanda B se estima en <b>55% de los kilos de la A</b> (60% los días de metal) y con un precio 5% menor, porque el mejor material se fue en la primera pasada. Si rinde solo el 35%, la semana cae a ≈$1.660.000 y sigue por encima de la meta. Si rinde el 70%, llega a ≈$2.090.000.
+  </div>
+
+  <div class="note stop">
+    <strong>Si el material no cabe, se recorta; no se completa.</strong>
+    Nunca “aprovechar el viaje” sumando vidrio o chatarra al final. El cajón tiene 387 litros y el tope es 150 kg: cuando llegues, cierras y descargas, aunque quede material en la calle. Con dos tandas esto importa más, no menos: hay una segunda pasada programada.
+  </div>
+
+  <h2>Cómo se calculó el ingreso</h2>
+
+  <p class="small">Cada día tiene una mezcla distinta de material, así que cada día paga distinto. Estos son los kilos que se suponen por jornada y el precio que se les aplicó.</p>
+
+  <table style="font-size:12.5px">
+    <tr>
+      <th style="width:10%">Día</th><th style="width:27%">Mezcla supuesta</th><th style="width:11%">Tanda A</th><th style="width:11%">Tanda B</th>
+      <th style="width:9%">Kilos</th><th>Ingreso del día</th><th>vs. meta</th>
+    </tr>
+    <tr><td><b>Lunes</b></td><td>45% cartón y plegadizo · 30% PET · 20% papel · 5% aluminio</td><td class="num">$160.650</td><td class="num">$84.000</td><td class="num">265</td><td class="num"><b>$244.650</b></td><td class="num">82%</td></tr>
+    <tr><td><b>Martes</b></td><td>40% vidrio · 30% PET · 25% papel · 5% aluminio</td><td class="num">$165.000</td><td class="num">$94.000</td><td class="num">320</td><td class="num"><b>$259.000</b></td><td class="num">86%</td></tr>
+    <tr><td><b>Miércoles</b></td><td>81% chatarra · 11% aluminio · 4% cable · 2% latón · 1% cobre</td><td class="num">$392.000</td><td class="num">$237.500</td><td class="num">212</td><td class="num"><b>$629.500</b></td><td class="num">210%</td></tr>
+    <tr><td><b>Jueves</b></td><td>46% cartón · 35% PET · 15% vidrio · 4% aluminio</td><td class="num">$166.650</td><td class="num">$79.000</td><td class="num">285</td><td class="num"><b>$245.650</b></td><td class="num">82%</td></tr>
+    <tr><td><b>Viernes</b></td><td>Igual que el lunes, solo clientes fijos</td><td class="num">$160.650</td><td class="num">$84.000</td><td class="num">265</td><td class="num"><b>$244.650</b></td><td class="num">82%</td></tr>
+    <tr><td><b>Sábado</b></td><td>85% chatarra · 13% aluminio · 2% cobre</td><td class="num">$196.500</td><td class="num">$117.200</td><td class="num">120</td><td class="num"><b>$313.700</b></td><td class="num">105%</td></tr>
+    <tr style="background:#f0f4f8"><td><b>Semana</b></td><td>Seis jornadas, doce tandas</td><td class="num">$1.241.450</td><td class="num">$695.700</td><td class="num">1.467</td><td class="num"><b>$1.937.150</b></td><td class="num"><b>108%</b></td></tr>
+  </table>
+
+  <div class="note">
+    <strong>La cuenta contra la meta.</strong>
+    Seis días a $300.000 son <b>$1.800.000</b>. Con una sola tanda por día el plan rendía $1.241.450 —un 69%, con una
+    brecha de $558.550—. Con dos tandas rinde <b>$1.937.150</b>: un <b>108%</b> y <b>$137.150 de más</b>. El promedio
+    diario pasa de $207.000 a <b>$322.900</b>.
+  </div>
+
+  <div class="note warn">
+    <strong>De dónde sale el cierre de la brecha.</strong>
+    La tanda B aporta <b>$695.700</b>, y el miércoles solo pesa <b>$629.500</b> —más que su propia meta—. El miércoles
+    y el sábado, los dos días de metal, suman el 49% del ingreso semanal. Los otros cuatro días no llegan a la meta
+    por sí solos (82–86%), pero con la segunda tanda la rozan.
+  </div>
+
+  <h2>Supuestos que debes conocer</h2>
+  <table>
+    <tr><th style="width:34%">Supuesto</th><th>Por qué se hizo así</th></tr>
+    <tr><td>Precio del papel blanco = precio del cartón ($300–$700)</td><td>No hay precio confirmado con ninguna bodega. Se usó el del cartón para no inventar una cifra alta.</td></tr>
+    <tr><td>PEAD, PP, tetra y film no suman ingresos</td><td>Sin comprador confirmado no se les asigna valor.</td></tr>
+    <tr><td>Kilos por día según el tipo de zona</td><td>Estimación de capacidad del cajón (387 L) y de la densidad de cada material, no una medición.</td></tr>
+    <tr><td>Cada viaje ≤ 80 kg, el techo de esta unidad</td><td>Las ruedas de 36 radios reciben unos 72 kg cada una con 80 kg de carga. A 150 kg serían 100 kg por rueda y el rin se dobla en curva, porque el eje es rígido y no hay diferencial. Con el refuerzo (eje con tambor y ruedas de 20" de radios gruesos) el tope subiría a 150 kg.</td></tr>
+    <tr><td>La tanda B rinde 55% de los kilos de la A (60% en metales)</td><td>Es el supuesto más frágil del plan. Sale de que la segunda pasada encuentra el material que la primera no alcanzó y el que se repone en el día. Está probado con un rango de 35% a 70%: la semana se mueve entre $1.660.000 y $2.090.000, y en los dos extremos supera la meta.</td></tr>
+    <tr><td>La tanda B se paga 5% menos por kilo</td><td>El aluminio y el mejor PET se van en la primera pasada; lo que queda es más cartón y vidrio.</td></tr>
+    <tr><td>Precios entre el mínimo y el máximo de la tabla</td><td>El escenario medio usa el punto medio de cada rango; el alto, el máximo.</td></tr>
+    <tr><td>No incluye costos</td><td>Ni tiempo, ni combustible, ni mermas por material sucio o húmedo.</td></tr>
+  </table>
+
+  <h2>Directorio de centros de acopio</h2>
+
+  <p class="small">Toca cualquier dirección para abrirla en Google Maps. <b>ECA</b> son las Estaciones de Clasificación y Aprovechamiento del Distrito. <b>Privado</b> son bodegas o chatarrerías que compran directo y pagan en el momento.</p>
+
+  <table style="font-size:12.5px;table-layout:fixed">
+    <tr>
+      <th style="width:17%">Punto</th><th style="width:11%">Localidad</th><th style="width:26%">Dirección</th>
+      <th style="width:18%">Qué recibe</th><th style="width:11%">Horario</th><th>Nota</th>
+    </tr>
+<tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Mártires</b></td><td>Los Mártires</td><td>Calle 8 N° 26-80<br><a href="https://www.google.com/maps/search/?api=1&query=Calle%208%20N%C2%B0%2026-80%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">A 1,5 km de la base. Es la descarga natural de la ruta 1 y de la 4.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Puente Aranda 1</b></td><td>Puente Aranda</td><td>Carrera 42A N° 10A-37<br><a href="https://www.google.com/maps/search/?api=1&query=Carrera%2042A%20N%C2%B0%2010A-37%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Alterna cuando vienes del occidente.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Puente Aranda 2</b></td><td>Puente Aranda</td><td>Carrera 65B N° 17-80<br><a href="https://www.google.com/maps/search/?api=1&query=Carrera%2065B%20N%C2%B0%2017-80%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Sobre el corredor de la Calle 13.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Fontibón (Montevideo)</b></td><td>Fontibón</td><td>Calle 17A N° 69F-26<br><a href="https://www.google.com/maps/search/?api=1&query=Calle%2017A%20N%C2%B0%2069F-26%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Cierre de la ruta 3.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Kennedy</b></td><td>Kennedy</td><td>Carrera 84 N° 11A-34<br><a href="https://www.google.com/maps/search/?api=1&query=Carrera%2084%20N%C2%B0%2011A-34%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Zona de talleres: chatarra y aluminio.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Coroteros</b></td><td>Kennedy</td><td>Avenida Carrera 86 N° 5A Sur-92<br><a href="https://www.google.com/maps/search/?api=1&query=Avenida%20Carrera%2086%20N%C2%B0%205A%20Sur-92%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Alterna de Kennedy, más al sur.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Alquería</b></td><td>Kennedy</td><td>Avenida Carrera 68A N° 39F-50 Sur<br><a href="https://www.google.com/maps/search/?api=1&query=Avenida%20Carrera%2068A%20N%C2%B0%2039F-50%20Sur%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Cerca de la Autopista Sur.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Bodega 5 María Paz</b></td><td>Kennedy</td><td>Diagonal 38 Sur N° 81G-66, bodega 5<br><a href="https://www.google.com/maps/search/?api=1&query=Diagonal%2038%20Sur%20N%C2%B0%2081G-66%2C%20bodega%205%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Sector María Paz.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Bodega 6 María Paz</b></td><td>Kennedy</td><td>Diagonal 38 Sur N° 81G-66, bodega 6<br><a href="https://www.google.com/maps/search/?api=1&query=Diagonal%2038%20Sur%20N%C2%B0%2081G-66%2C%20bodega%206%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Sector María Paz.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Toberín 1</b></td><td>Usaquén</td><td>Carrera 21 N° 164-82<br><a href="https://www.google.com/maps/search/?api=1&query=Carrera%2021%20N%C2%B0%20164-82%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Extremo norte de la ruta 2.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Toberín 2</b></td><td>Usaquén</td><td>Carrera 18 N° 164-32<br><a href="https://www.google.com/maps/search/?api=1&query=Carrera%2018%20N%C2%B0%20164-32%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Alterna de Toberín.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Engativá</b></td><td>Engativá</td><td>Calle 80C N° 92-44<br><a href="https://www.google.com/maps/search/?api=1&query=Calle%2080C%20N%C2%B0%2092-44%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Noroccidente.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Engativá 2 (Las Ferias)</b></td><td>Engativá</td><td>Carrera 69K N° 79-49 / 79-53<br><a href="https://www.google.com/maps/search/?api=1&query=Carrera%2069K%20N%C2%B0%2079-49%20/%2079-53%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Sector Las Ferias.</td></tr><tr><td><span class="pill blue" style="margin:0">ECA</span><br><b>ECA Usme</b></td><td>Usme</td><td>Carrera 14A Bis N° 78-66 Sur<br><a href="https://www.google.com/maps/search/?api=1&query=Carrera%2014A%20Bis%20N%C2%B0%2078-66%20Sur%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Todo aprovechable</td><td class="num">Confirmar</td><td class="small">Sur extremo.</td></tr><tr><td><span class="pill amber" style="margin:0">Privado</span><br><b>METALREC (ECA privada)</b></td><td>—</td><td>Calle 21C N° 42-169, Autopista Medellín<br><a href="https://www.google.com/maps/search/?api=1&query=Calle%2021C%20N%C2%B0%2042-169%2C%20Autopista%20Medell%C3%ADn%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Metales, chatarra, aprovechables</td><td class="num">Lun a sáb, 7:00 – 13:00</td><td class="small">Estación privada con báscula camionera.</td></tr><tr><td><span class="pill amber" style="margin:0">Privado</span><br><b>Depósito Gaitán</b></td><td>—</td><td>Carrera 128 N° 14B-90<br><a href="https://www.google.com/maps/search/?api=1&query=Carrera%20128%20N%C2%B0%2014B-90%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Cobre, latón, bronce, chatarra</td><td class="num">Confirmar por WhatsApp</td><td class="small">Publica lista de precios de metales. Cotiza antes de cargar.</td></tr><tr><td><span class="pill amber" style="margin:0">Privado</span><br><b>Comercializadora Gamboa JJ</b></td><td>—</td><td>Carrera 32 N° 11A-81<br><a href="https://www.google.com/maps/search/?api=1&query=Carrera%2032%20N%C2%B0%2011A-81%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener" style="font-size:12.5px">Abrir en Google Maps →</a></td><td>Papel, cartón, plástico, cobre, aluminio, chatarra</td><td class="num">Confirmar</td><td class="small">A 2 km de la base. Compra a particulares y paga en el momento.</td></tr>
+  </table>
+
+  <h2>Cómo usar el directorio</h2>
+  <ul class="clean">
+    <li><b>No cargues sin saber a quién le vendes.</b> Escribe o llama antes de salir y pregunta el precio del día por kilo.</li>
+    <li><b>Separa antes de pesar.</b> Cobre pelado, cable con forro, latón, aluminio y chatarra van en bolsas distintas. Mezclados te pagan todo como chatarra.</li>
+    <li><b>Pide el pesaje a la vista.</b> Báscula certificada y ticket con el detalle por material.</li>
+    <li><b>Empieza por la ECA Mártires</b> aunque pague un poco menos: está a 1,5 km y te da precio de referencia para negociar con las privadas.</li>
+  </ul>
+
+  <h2>Qué falta confirmar</h2>
+  <table>
+    <tr><th style="width:38%">Dato</th><th>Por qué importa</th></tr>
+    <tr><td>Horarios reales de cada ECA</td><td>La planilla oficial trae dirección pero no horario de atención al público</td></tr>
+    <tr><td>Si la ECA paga en efectivo o abona a una organización</td><td>Define si puedes cerrar ahí la ruta o necesitas una bodega privada</td></tr>
+    <tr><td>Precios del día por material</td><td>Cambian a diario y son la base de toda la cuenta</td></tr>
+    <tr><td>Si el triciclo puede quedar parqueado en La Favorita</td><td>Define el horario real de salida y si conviene un punto de guardado</td></tr>
+    <tr><td>Precio del vidrio en la ECA Toberín 1</td><td>Es la descarga del primer viaje del martes. Si no paga bien, el vidrio se baja a Mártires y ese día se estira</td></tr>
+    <tr><td>Luces para el triciclo</td><td>El jueves cierra a las 19:10 con el segundo viaje. Sin luces toca un solo viaje de 150 kg</td></tr>
+  </table>
+
+  <footer class="foot">
+    <p><b>Fuentes de las direcciones:</b> Estaciones de Clasificación y Aprovechamiento — planilla oficial de la UAESP (Alcaldía Mayor de Bogotá). METALREC, Depósito Gaitán y Comercializadora Gamboa JJ: direcciones publicadas en sus propios sitios web.</p>
+    <p>Los horarios marcados como «Confirmar» no aparecen en la fuente y no se inventaron. Las distancias son estimaciones de recorrido, no mediciones de GPS.</p>
+    <p><a href="../index.html">Volver al inicio</a> · <a href="../AI_CONTEXT.md">Contexto del proyecto</a></p>
+  </footer>
+</div>
+</body>
+</html>
