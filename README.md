@@ -10,7 +10,7 @@ Todo está en español, en formatos abribles sin instalar nada (HTML + PDF) y en
 
 1. **`index.html`** — portal de entrada. Resume el proyecto y enlaza a todo lo demás.
 2. **`AI_CONTEXT.md`** — el documento de contexto: qué se decidió, qué falta, de dónde salen los datos. Si retomas el proyecto en un mes, lee esto primero.
-3. **`02_materiales/guia_materiales.html`** — la guía de campo: 18 materiales con foto del envase, cómo reconocerlos y cuánto valen.
+3. **`02_materiales/guia_materiales.html`** — la guía de campo: 20 materiales con foto del envase, cómo reconocerlos y cuánto valen.
 
 ---
 
@@ -28,18 +28,25 @@ RECYCLING_PROJECT/
 │   ├── ficha_triciclo.html       Especificación del vehículo
 │   └── ficha_triciclo.pdf
 ├── 02_materiales/
-│   ├── guia_materiales.html      Guía visual de 18 materiales
+│   ├── guia_materiales.html      Guía visual de 20 materiales
 │   ├── guia_materiales.pdf
-│   └── materiales.csv            Los 18 materiales en tabla editable
+│   └── materiales.csv            Los 20 materiales en tabla editable
 ├── 03_rutas/
 │   ├── mapa_rutas.html           Mapa + tabla de rutas + semana
 │   ├── mapa_rutas.pdf
+│   ├── plan_semanal.html         Plan día por día, calles y acopios
+│   ├── plan_semanal.pdf
 │   ├── mapa_bogota.png           Solo el mapa (alta resolución)
 │   ├── mapa_rutas_bogota.png     Póster con título y leyenda
 │   └── rutas.csv                 Paradas, orden y horarios
-└── 04_operacion/
-    ├── precios_referencia.csv    Precios con fuente y estado de verificación
-    └── registro_recoleccion.csv  Plantilla para llenar en la calle
+├── 04_operacion/
+│   ├── precios_referencia.csv    Precios con fuente y estado de verificación
+│   └── registro_recoleccion.csv  Plantilla para llenar en la calle
+└── 05_directorio/
+    ├── directorio_ecas.html      3.135 registros UAESP, filtrable
+    ├── registros_geocodificados.csv
+    ├── Listado_ECA_direcciones.xlsx
+    └── Listado_ECA_direcciones.docx
 ```
 
 ---
@@ -50,9 +57,10 @@ Todos van separados por **punto y coma** y con **UTF-8 con BOM**, para que Excel
 
 | Archivo | Qué contiene |
 |---|---|
-| `materiales.csv` | 18 filas: material, código de reciclaje, decisión (recoger/preguntar/evitar), precio, envase de ejemplo, cómo reconocerlo, cómo empacarlo, advertencia |
+| `materiales.csv` | 20 filas: material, código de reciclaje, decisión (recoger/preguntar/evitar), precio, envase de ejemplo, cómo reconocerlo, cómo empacarlo, advertencia |
 | `rutas.csv` | 12 filas: una por parada, con ruta, color, orden de visita, localidad, franja horaria y materiales |
 | `precios_referencia.csv` | 19 materiales con precio mínimo, máximo, fuente y estado (`Referencia`, `Confirmar`, `Evitar`) |
+| `05_directorio/registros_geocodificados.csv` | 3.135 establecimientos de la UAESP: ítem, nombre, tipo, área, coordenada, localidad, estado y dirección derivada cuando existe |
 | `registro_recoleccion.csv` | Plantilla vacía con una fila de ejemplo. Columnas: fecha, día, ruta, negocio, zona, material, kilos, precio, valor, observaciones |
 
 **Cómo usar la plantilla de campo:** bórrale la fila de ejemplo, llénala en el celular o en papel, y al final de la semana suma la columna `valor_cop`. En dos semanas sabrás qué ruta y qué material te están pagando de verdad.
@@ -86,8 +94,8 @@ Si editas un HTML, vuelve a correr ese comando para actualizar su PDF.
 
 ## Estado del repositorio
 
-- Repositorio git inicializado en `main`, con remoto `origin` → `github.com/mcortesgranados/RECYCLING_PROJECT`.
-- **Los archivos están creados pero sin commit ni push.** Revisa el contenido y decide qué versión subir.
+- Repositorio git en `main`, con remoto `origin` → `github.com/mcortesgranados/RECYCLING_PROJECT`.
+- **Todo commiteado y subido**, en commits por categoría (base, producto, materiales, mapa, plan, operación, portal, contexto, directorio).
 
 ---
 

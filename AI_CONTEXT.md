@@ -325,9 +325,14 @@ RECYCLING_PROJECT/
 │   ├── mapa_bogota.png           ← solo el mapa
 │   ├── mapa_rutas_bogota.png     ← póster con leyenda
 │   └── rutas.csv
-└── 04_operacion/
-    ├── precios_referencia.csv
-    └── registro_recoleccion.csv  ← plantilla de campo
+├── 04_operacion/
+│   ├── precios_referencia.csv
+│   └── registro_recoleccion.csv  ← plantilla de campo
+└── 05_directorio/
+    ├── directorio_ecas.html      ← 3.135 registros UAESP, filtrable
+    ├── registros_geocodificados.csv
+    ├── Listado_ECA_direcciones.xlsx
+    └── Listado_ECA_direcciones.docx
 ```
 
 ---
@@ -352,6 +357,7 @@ RECYCLING_PROJECT/
 
 | Fecha | Qué se hizo |
 |---|---|
+| 2026-10-25 (14) | Se integró el **directorio completo de la UAESP** como sección `05_directorio`: 3.135 registros (1.388 ECA · 758 activas · 1.747 bodegas · 19 localidades), página HTML filtrable por localidad, estado y texto, con enlace a mapa por coordenada. Se advierte en la misma página que **la fuente no trae dirección**: 519 ECA (37,4%) tienen vía y barrio derivados por geocodificación inversa, sin número de placa; las demás figuran como «Coordenada registrada». Validado contra el CSV: ítems 1–3.135 continuos, sin faltantes. |
 | 2026-10-24 (13) | Se sumaron **cable de red (UTP)** y **cable coaxial** como fichas 09 y 10 del catálogo, con precio estimado por contenido de cobre ($5.000–$8.000 y $3.000–$5.000/kg), la **prueba del imán** y la regla de no pelar. Entraron también en el CSV de materiales (20 filas) y en el ranking de prioridad por kilo como puesto 4. Referencia verificada: cable con forro $11.000/kg y cobre limpio $35.000/kg en Depósito Gaitán, 2026. |
 | 2026-10-23 (12) | Dos correcciones de realidad en el plan: **los horarios de apertura** (antes de las 7:00 no hay comercio ni oficina abiertos; esas filas pasaron a «se recoge lo del andén» y la regla entró al protocolo) y **los guiones comerciales** (nueve reescritos para preguntar por el comprador actual en vez de ofrecer compra, más el bloque «las primeras semanas no se compra» y la prueba de los diez locales). PDF en 12 páginas. |
 | 2026-10-23 (11) | Se agregó al plan la sección **«Protocolo de parqueo y voz»**: tabla de qué material se recoge del andén y cuál hay que pedir, seis reglas de seguridad del triciclo (10 metros, umbral, mismo lado del andén, candado, nunca lleno, pedir que lo saquen) y la regla de las dos primeras semanas (preguntar sin cargar). PDF en 12 páginas. |
